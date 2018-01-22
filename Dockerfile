@@ -58,9 +58,8 @@ RUN pip install virtualenvwrapper
 RUN pip3 install virtualenv
 RUN pip3 install virtualenvwrapper
 
-# Create user and add it to sudoers
-RUN useradd --home /home/madmex_user --create-home --group sudo --shell /bin/bash madmex_user && \
-	echo 'madmex_user:qwerty' | chpasswd
+RUN echo 'root:qwerty'|chpasswd
+
 # database stuff
 RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
 	postgresql-9.5 \
@@ -79,6 +78,7 @@ RUN service postgresql restart
 # USER root
 
 # Properly mount LUSTRE
+USER root
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
     && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
@@ -86,27 +86,11 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
 
-COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
 # DB remap
 VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
-# Work from useraccount madmex_user
-USER madmex_user
 
-RUN mkdir /home/madmex_user/git && mkdir /home/madmex_user/sandbox
-RUN echo 'source /usr/local/bin/virtualenvwrapper.sh' >> /home/madmex_user/.bashrc
-RUN echo "alias python=python3" >> /home/madmex_user/.bashrc
+RUN service ssh restart
 
-RUN cd /home/madmex_user/git && git clone https://github.com/CONABIO/antares3.git && cd antares3 && git checkout -b develop origin/develop
-# RUN /bin/bash -c "source /usr/local/bin/virtualenvwrapper.sh && alias python=python3 && mkvirtualenv antares"
-# RUN pip install numpy && pip install cloudpickle && pip install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal"
-# RUN pip install git+https://github.com/CONABIO/datacube-core.git@release-1.5
-# RUN pip install -e .
-
-COPY conf/.datacube.conf /home/madmex_user/.datacube.conf
-COPY conf/.env /home/madmex_user/antares3/madmex/.env
-
-
+COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
