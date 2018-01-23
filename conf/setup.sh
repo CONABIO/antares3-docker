@@ -1,5 +1,6 @@
 #!/bin/bash
 cp /etc/skel/.bashrc /home/madmex_user/.
+cp /etc/skel/.profile /home/madmex_user/.
 mkdir -p /home/madmex_user/.virtualenvs
 mkdir -p /home/madmex_user/git && mkdir -p /home/madmex_user/sandbox
 echo 'source /usr/local/bin/virtualenvwrapper.sh' >> /home/madmex_user/.bash_aliases
