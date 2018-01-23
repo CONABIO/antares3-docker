@@ -9,4 +9,4 @@ cd /home/madmex_user/git && git clone https://github.com/CONABIO/antares3.git &&
 # HAndle conf files
 mkdir -p /home/madmex_user/conf
 cp ~/conf/.datacube.conf /home/madmex_user/.datacube.conf
-cp ~/conf/.env /home/madmex_user/antares3/git/madmex/.env
+cp ~/conf/.env /home/madmex_user/git/antares3/madmex/.env
