@@ -78,7 +78,6 @@ RUN service postgresql restart
 # USER root
 
 # Properly mount LUSTRE
-USER root
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
     && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
@@ -93,4 +92,5 @@ VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 RUN service ssh restart
 
 COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY conf/setup.sh /setup.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
