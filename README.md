@@ -1,4 +1,4 @@
-Creamos los siguientes directorios en LUSTRE:
+Directories on LUSTRE
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql`
 
@@ -6,16 +6,16 @@ Creamos los siguientes directorios en LUSTRE:
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
 
-Instalación de postgres y librerías de python
+Postgres and python libraries
 
 `chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/setup.sh`
 
-Construcción de docker image:
+Build of docker image
 
 `sudo docker build -t antares-image .`
 
 
-Mapeo de directorios en contenedor antares-container:
+Mapping of directories on antares-container:
 
 `/home/madmex_user/datacube_ingest` (para datos)
 
@@ -46,5 +46,7 @@ sudo docker run \
 
 -dit antares-image /bin/bash
 ```
+
+Execute setup.sh
 
 `sudo docker exec -u=madmex_user -it antares-container /home/madmex_user/conf/setup.sh`
