@@ -6,7 +6,7 @@ Creamos los siguientes directorios en LUSTRE:
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
 
-Para instalación de postgre y librerías de pythonpara datacube y antares3
+Instalación de postgres y librerías de python
 
 `chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/setup.sh`
 
