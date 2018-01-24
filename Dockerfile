@@ -1,21 +1,20 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 MAINTAINER Loic Dutrieux
 
 EXPOSE 22 5432 8887
 
-RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes --no-install-recommends \
-	locales
+RUN apt-get update
 
-# Set the locale
+RUN apt-get install -y locales
+
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG en_US.UTF-8  
 ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8     
-
+ENV LC_ALL en_US.UTF-8 
 
 # install basic packages
-RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
+RUN apt-get install -y \
 	openssh-server \
 	openssl \
 	sudo \
@@ -42,7 +41,7 @@ RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
 # Install spatial libraries
 RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable && apt-get -qq update
 
-RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
+RUN apt-get install -y \
 	netcdf-bin \
 	libnetcdf-dev \
 	ncview \
@@ -53,29 +52,8 @@ RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
 
 # Python stuff from root
 RUN pip install --upgrade pip
-RUN pip install virtualenv
-RUN pip install virtualenvwrapper
-RUN pip3 install virtualenv
-RUN pip3 install virtualenvwrapper
-
-RUN echo 'root:qwerty'|chpasswd
-
-# database stuff
-RUN apt-get install --fix-missing -y --force-yes --no-install-recommends \
-	postgresql-9.5 \
-	postgresql-contrib \
-	postgresql-common \
-	postgresql-client-9.5 \
-	postgresql-client-common 
-
-RUN service postgresql restart
-
-
-# USER postgres
-# RUN psql --command "CREATE USER madmex_user WITH SUPERUSER PASSWORD 'qwerty';"
-# RUN createuser -s madmex_user
-# 
-# USER root
+RUN pip install virtualenv virtualenvwrapper
+RUN pip3 install virtualenv virtualenvwrapper
 
 # Properly mount LUSTRE
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
@@ -87,9 +65,6 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 
 # DB remap
 VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
-
-RUN service ssh restart
 
 COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY conf/setup.sh /setup.sh
