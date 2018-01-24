@@ -7,6 +7,7 @@ postgresql-client-9.5
 sudo /etc/init.d/postgresql start
 echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf
 echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
+sudo /etc/init.d/postgresql restart
 createdb -O madmex_user madmex_user
 psql --command "ALTER USER madmex_user WITH PASSWORD 'qwerty';"
 cp /etc/skel/.bashrc /home/madmex_user/.
