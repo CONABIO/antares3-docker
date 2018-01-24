@@ -17,10 +17,13 @@ Construcción de docker image:
 
 Mapeo de directorios en contenedor antares-container:
 
-/home/madmex_user/datacube_ingest (para datos)
-/etc/postgresql , /var/log/postgresql , /var/lib/postgresql (para backup de config, logs and databases )
-/tmp/ (para resultados intermedios)
-/home/madmex_user/conf/ (para configuraciones como el setup.sh , el .env y el entrypoint.sh para enmascarar usuarios madmex_user y postgres y puedan leer-escribir a LUSTRE como madmex_admin)
+`/home/madmex_user/datacube_ingest` (para datos)
+
+`/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (para backup de config, logs and databases )
+
+`/tmp/` (para resultados intermedios)
+
+`/home/madmex_user/conf/` (para configuraciones como el setup.sh , el .env y el entrypoint.sh para enmascarar usuarios madmex_user y postgres y puedan leer-escribir a LUSTRE como madmex_admin)
 
 ```
 sudo docker run \
