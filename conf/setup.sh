@@ -1,4 +1,12 @@
 #!/bin/bash
+sudo service ssh restart
+sudo apt-get install -y  \
+postgresql-9.5 \
+postgresql-contrib-9.5 \
+postgresql-client-9.5
+sudo /etc/init.d/postgresql start
+createdb -O madmex_user madmex_user
+psql --command "ALTER USER madmex_user WITH PASSWORD 'qwerty';"
 cp /etc/skel/.bashrc /home/madmex_user/.
 cp /etc/skel/.profile /home/madmex_user/.
 mkdir -p /home/madmex_user/.virtualenvs
