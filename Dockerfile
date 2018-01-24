@@ -64,8 +64,8 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && chmod +x /usr/local/bin/gosu
 
 # DB remap
+# Add VOLUMEs to allow backup of config, logs and databases
 VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY conf/setup.sh /setup.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
