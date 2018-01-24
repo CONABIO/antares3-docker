@@ -1,12 +1,26 @@
+Creamos los siguientes directorios en LUSTRE:
+
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql`
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/log/postgresql`
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
 
+Para instalación de postgre y librerías de pythonpara datacube y antares3
+
 `chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/setup.sh`
 
+Construcción de docker image:
+
 `sudo docker build -t antares-image .`
+
+
+Mapeo de directorios en contenedor antares-container:
+
+/home/madmex_user/datacube_ingest (para datos)
+/etc/postgresql , /var/log/postgresql , /var/lib/postgresql (para backup de config, logs and databases )
+/tmp/ (para resultados intermedios)
+/home/madmex_user/conf/ (para configuraciones como el setup.sh , el .env y el entrypoint.sh para enmascarar usuarios madmex_user y postgres y puedan leer-escribir a LUSTRE como madmex_admin)
 
 ```
 sudo docker run \
