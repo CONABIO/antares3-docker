@@ -17,13 +17,13 @@ Build of docker image
 
 Mapping of directories on antares-container:
 
-`/home/madmex_user/datacube_ingest` (para datos)
+`/home/madmex_user/datacube_ingest` (data)
 
-`/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (para backup de config, logs and databases )
+`/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (backup of config, logs and databases )
 
-`/tmp/` (para resultados intermedios)
+`/tmp/` (intermediary results)
 
-`/home/madmex_user/conf/` (para configuraciones como el setup.sh , el .env y el entrypoint.sh para enmascarar usuarios madmex_user y postgres y puedan leer-escribir a LUSTRE como madmex_admin)
+`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user and postgres as madmex_admin so they can rw on LUSTRE)
 
 ```
 sudo docker run \
