@@ -28,7 +28,7 @@ sudo docker run \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/:/home/madmex_user/conf/ \
 
--v -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/credentials:/home/madmex_user/credentials \
+-v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/credentials:/home/madmex_user/credentials \
 
 -e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container --hostname antares3-datacube -p 2224:22 -p 8887:8887 \
 
