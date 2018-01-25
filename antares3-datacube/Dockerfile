@@ -1,17 +1,17 @@
 FROM ubuntu:latest
 MAINTAINER Loic Dutrieux
 
-EXPOSE 22 5432 8887
+EXPOSE 22 8887
 
 RUN apt-get update
 
 RUN apt-get install -y locales
 
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8 
+#RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+ #   locale-gen
+ENV LANG C.UTF-8
+#ENV LANGUAGE en_US:en  
+ENV LC_ALL C.UTF-8
 
 # install basic packages
 RUN apt-get install -y \
@@ -63,9 +63,6 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
 
-# DB remap
-# Add VOLUMEs to allow backup of config, logs and databases
-VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
