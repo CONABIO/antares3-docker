@@ -1,21 +1,14 @@
-Directories on LUSTRE
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql`
-
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/log/postgresql`
-
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
-
-Postgres and python libraries
+Python libraries
 
 `chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/setup.sh`
 
 Build of docker image
 
-`sudo docker build -t antares-image .`
+`sudo docker build -t antares3-datacube .`
 
 
-Mapping of directories on antares-container:
+Mapping of directories on antares3-datacube container:
 
 `/home/madmex_user/datacube_ingest` (data)
 
@@ -23,7 +16,7 @@ Mapping of directories on antares-container:
 
 `/tmp/` (intermediary results)
 
-`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user and postgres as madmex_admin so they can rw on LUSTRE)
+`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user as madmex_admin so they can rw on LUSTRE)
 
 ```
 sudo docker run \
@@ -32,21 +25,17 @@ sudo docker run \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/datacube_ingest:/home/madmex_user/datacube_ingest \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql:/etc/postgresql \
+-v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_antares-3:/tmp/ \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/log/postgresql:/var/log/postgresql \
+-v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/:/home/madmex_user/conf/ \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql:/var/lib/postgresql \
+-v -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/credentials:/home/madmex_user/credentials \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp/:/tmp/ \
+-e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container --hostname antares3-datacube -p 2224:22 -p 8887:8887 \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/:/home/madmex_user/conf/ \
-
--e LOCAL_USER_ID=$(id -u madmex_admin) --name antares-container --hostname datacube-madmex -p 2224:22 -p 2345:5432 -p 8887:8887 \
-
--dit antares-image /bin/bash
+-dit antares3-datacube  /bin/bash
 ```
 
 Execute setup.sh
 
-`sudo docker exec -u=madmex_user -it antares-container /home/madmex_user/conf/setup.sh`
+`sudo docker exec -u=madmex_user -it antares3-datacube-container /home/madmex_user/conf/setup.sh`
