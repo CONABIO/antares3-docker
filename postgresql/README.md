@@ -23,6 +23,8 @@ Run command:
 ```
 sudo docker run \
 
+
+
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql:/etc/postgresql \
@@ -35,7 +37,7 @@ sudo docker run \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/:/tmp/ \
 
--p 2226:22 -p 5432:5432 --name postgresql-datacube-container --hostname postgresql-datacube \
+-e LOCAL_USER_ID=$(id -u madmex_admin) -p 2226:22 -p 5432:5432 --name postgresql-datacube-container --hostname postgresql-datacube \
 
 -dit postgresql-antares3-datacube /bin/bash
 
