@@ -1,3 +1,6 @@
+Directories on LUSTRE
+
+`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/`
 
 Python libraries
 

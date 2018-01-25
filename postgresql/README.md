@@ -16,7 +16,7 @@ Mapping of directories on postgresql-datacube container:
 
 Postgres libraries
 
-chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh
+`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh`
 
 Run command:
 
@@ -33,7 +33,7 @@ sudo docker run \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
 
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/tmp_postgresql/:/tmp/ \
+-v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/:/tmp/ \
 
 -p 2226:22 -p 5432:5432 --name postgresql-datacube-container --hostname postgresql-datacube \
 
