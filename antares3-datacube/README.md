@@ -12,7 +12,6 @@ Mapping of directories on antares3-datacube container:
 
 `/home/madmex_user/datacube_ingest` (data)
 
-`/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (backup of config, logs and databases )
 
 `/tmp/` (intermediary results)
 

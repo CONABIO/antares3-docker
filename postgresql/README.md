@@ -41,5 +41,6 @@ sudo docker run \
 
 ```
 
+Execute setup.sh
 
-sudo docker exec -u=postgres -it postgresql-datacube /home/postgres/conf/setup.sh
+`sudo docker exec -u=postgres -it postgresql-datacube /home/postgres/conf/setup.sh`
