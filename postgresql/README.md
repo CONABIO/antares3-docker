@@ -25,8 +25,6 @@ Run command:
 ```
 sudo docker run \
 
-
-
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
 
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql:/etc/postgresql \
