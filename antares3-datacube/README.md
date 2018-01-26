@@ -22,7 +22,7 @@ Mapping of directories on antares3-datacube container:
 
 `/tmp/` (intermediary results)
 
-`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user as madmex_admin so they can rw on LUSTRE)
+`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user as madmex_admin and can rw on LUSTRE)
 
 ```
 sudo docker run \

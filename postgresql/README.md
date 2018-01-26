@@ -14,7 +14,7 @@ Mapping of directories on postgresql-datacube container:
 
 `/tmp/` (intermediary results)
 
-`/home/postgres/conf/` (configurations as setup.sh and entrypoint.sh to use postgres as madmex_admin so they can rw on LUSTRE)
+`/home/postgres/conf/` (configurations as setup.sh and entrypoint.sh to use postgres as madmex_admin and can rw on LUSTRE)
 
 Postgres libraries
 
