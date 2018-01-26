@@ -6,10 +6,10 @@ postgresql-contrib-9.5 \
 postgresql-client-9.5
 sudo /etc/init.d/postgresql start
 echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf
+echo "local all all md5" >> /etc/postgresql/9.5/main/pg_hba.conf
 echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
 sudo /etc/init.d/postgresql restart
-#createdb -O postgres postgres
-#psql --command "ALTER USER postgres WITH PASSWORD 'qwerty';"
+psql --command "ALTER USER postgres WITH PASSWORD 'qwerty';"
 echo "export LC_ALL=C.UTF-8" >> .profile
 echo "export LANG=C.UTF-8" >> .profile
 cp /etc/skel/.bashrc /home/postgres/.
