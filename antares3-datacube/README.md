@@ -24,6 +24,8 @@ Mapping of directories on antares3-datacube container:
 
 `/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user as madmex_admin and can rw on LUSTRE)
 
+Run command:
+
 ```
 sudo docker run \
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
