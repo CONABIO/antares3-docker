@@ -6,6 +6,8 @@ Directories on LUSTRE
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
 
+`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
+
 Mapping of directories on postgresql-datacube container:
 
 `/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (backup of config, logs and databases )
