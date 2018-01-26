@@ -8,6 +8,10 @@ Directories on LUSTRE
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
 
+Postgres libraries
+
+`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh`
+
 Build of docker image:
 
 `docker build -t postgresql-antares3-datacube .`
@@ -20,9 +24,6 @@ Mapping of directories on postgresql-datacube container:
 
 `/home/postgres/conf/` (configurations as setup.sh and entrypoint.sh to use postgres as madmex_admin and can rw on LUSTRE)
 
-Postgres libraries
-
-`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh`
 
 Run command:
 
