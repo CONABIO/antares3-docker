@@ -10,6 +10,8 @@ echo "listen_addresses='*'" >> /etc/postgresql/9.5/main/postgresql.conf
 sudo /etc/init.d/postgresql restart
 #createdb -O postgres postgres
 #psql --command "ALTER USER postgres WITH PASSWORD 'qwerty';"
+echo "export LC_ALL=C.UTF-8" >> .profile
+echo "export LANG=C.UTF-8" >> .profile
 cp /etc/skel/.bashrc /home/postgres/.
 cp /etc/skel/.profile /home/postgres/.
 createdb datacube_cluster
