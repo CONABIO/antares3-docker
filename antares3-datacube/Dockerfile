@@ -36,7 +36,7 @@ RUN apt-get install -y \
 	python-setuptools \
 	python3-setuptools \
 	ca-certificates \
-        curl
+	curl
 
 # Install spatial libraries
 RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable && apt-get -qq update
