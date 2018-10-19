@@ -8,6 +8,10 @@ Directories on LUSTRE
 
 `mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
 
+So that our tmp directory do not interfer with the apt-get update, we must give permissions to this folder.
+
+`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
+
 Postgres libraries
 
 `chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh`
