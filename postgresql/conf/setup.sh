@@ -7,7 +7,7 @@ sudo apt-get install -y \
 postgresql-9.5 \
 postgresql-contrib-9.5 \
 postgresql-client-9.5 \
-postgresql-9.5-postgis-2.3
+postgresql-9.5-postgis-2.3 postgresql-9.5-postgis-2.4
 sudo /etc/init.d/postgresql start
 echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.5/main/pg_hba.conf
 echo "local all all md5" >> /etc/postgresql/9.5/main/pg_hba.conf
