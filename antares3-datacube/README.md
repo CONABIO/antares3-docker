@@ -74,3 +74,15 @@ Execute setup.sh
 `sudo docker exec -u=madmex_user -it antares3-datacube-container /home/madmex_user/conf/setup.sh`
 
 
+To init jupyter lab first create a configuration file with:
+
+`jupyter notebook --generate-config`
+
+Select port of your preference, for example 9999:
+
+`sed -i 's/#c.NotebookApp.port = .*/c.NotebookApp.port = 9999/' ~/.jupyter/jupyter_notebook_config.py`
+
+and init jupyter lab with:
+
+`jupyter lab --ip=0.0.0.0 --no-browser`
+
