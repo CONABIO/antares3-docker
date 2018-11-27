@@ -86,3 +86,14 @@ and init jupyter lab with:
 
 `jupyter lab --ip=0.0.0.0 --no-browser`
 
+Also you can configure aws security credentials using aws config cmd line:
+
+`aws config`
+
+and create `~/.aws/config` with proper content:
+
+`
+[default]
+aws_access_key_id=
+aws_secret_access_key=
+`
