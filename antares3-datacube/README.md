@@ -8,7 +8,7 @@ Directories on LUSTRE
 
 Python libraries
 
-`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/conf/setup.sh`
+`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/setup.sh`
 
 Build of docker image
 
@@ -26,31 +26,61 @@ Mapping of directories on antares3-datacube container:
 
 Datacube and MADMex instalations need configuration files. The contents of these files should follow the patterns.
 
-Datacube:
+```.datacube.conf```:
 
 ```
+[user]
+default_environment: datacube
+#default_environment: s3aio_env
+
 [datacube]
-db_database: datacube_cluster
-
-# A blank host will use a local socket. Specify a hostname (such as localhost) to use TCP.
 db_hostname: nodo5
-
-# Credentials are optional: you might have other Postgres authentication configured.
-# The default username otherwise is the current user id.
+db_database: datacube_cluster_2
 db_username: madmex_user
 db_password: qwerty
+
+execution_engine.use_s3: False
+
+[s3aio_env]
+db_hostname: nodo5
+db_database: datacube_cluster_2
+db_username: madmex_user
+db_password: qwerty
+
+#index_driver: s3aio_index
+
+execution_engine.use_s3: False
+
 ```
 
-MADMex:
+```.antares```:
 
 ```
-SECRET_KEY=i2*)195icuc26+v6$1!dph72lqlg=o9xezicq@^l917$ladw2)
+# Django settings
+SECRET_KEY=<key>
 DEBUG=True
 DJANGO_LOG_LEVEL=DEBUG
+ALLOWED_HOSTS=
+# Database
 DATABASE_NAME=datacube_cluster
 DATABASE_USER=madmex_user
 DATABASE_PASSWORD=qwerty
-DATABASE_HOST=localhost
+DATABASE_HOST=nodo5
+DATABASE_PORT=5432
+# Datacube
+SERIALIZED_OBJECTS_DIR=/home/madmex_user/datacube_ingest/serialized_objects/
+INGESTION_PATH=/home/madmex_user/datacube_ingest
+#DRIVER=s3aio
+DRIVER='NetCDF CF'
+#INGESTION_BUCKET=datacube-s2-jalisco-test
+# Query and download
+USGS_USER=<username>
+USGS_PASSWORD=<password>
+SCIHUB_USER=
+SCIHUB_PASSWORD=
+# Misc
+BIS_LICENSE=<license>
+TEMP_DIR=/LUSTRE/MADMEX/tasks/2018_tasks/belize_guyana/escenas/suriname/
 ```
 
 Run command:
