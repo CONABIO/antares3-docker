@@ -122,8 +122,9 @@ Also you can configure aws security credentials using aws config cmd line:
 
 and create `~/.aws/config` with proper content:
 
-`
+```
 [default]
 aws_access_key_id=
+
 aws_secret_access_key=
-`
+```
