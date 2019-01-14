@@ -94,7 +94,7 @@ sudo docker run \
 -v <directory that contains antares conf file>/.env:/home/madmex_user/conf/.antares \
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/setup.sh:/home/madmex_user/conf/setup.sh \
 -v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/credentials:/home/madmex_user/credentials \
--e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container --hostname antares3-datacube -p 2224:22 -p 8887:8887 \
+-e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container --hostname antares3-datacube -p 2224:22 -p 9796:8786 -p 8887:8887 \
 -p 9797:8787 -p 9798:8788 -p 9789:8789 -p 9999:9999 \
 -dit antares3-datacube  /bin/bash
 ```
