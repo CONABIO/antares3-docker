@@ -14,6 +14,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 # install basic packages
+RUN apt-get install -y tzdata
 RUN apt-get install -y \
 	openssh-server \
 	openssl \
@@ -21,7 +22,7 @@ RUN apt-get install -y \
 	wget \
 	nano \
 	software-properties-common \
-	python-software-properties \
+#	python-software-properties \
 	git \
 	vim \
 	vim-gtk \
