@@ -114,7 +114,7 @@ Select port of your preference, for example 9999:
 
 and init jupyter lab with:
 
-`jupyter lab --ip=0.0.0.0 --no-browser`
+`jupyter lab --ip=0.0.0.0 --no-browser &`
 
 Also you can configure aws security credentials using aws config cmd line:
 
