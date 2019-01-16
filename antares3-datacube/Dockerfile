@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER Loic Dutrieux
+MAINTAINER Ixchel Meza
 
 EXPOSE 22 8887
 
