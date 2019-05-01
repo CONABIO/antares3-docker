@@ -28,6 +28,8 @@ change permissions:
 chmod gou+x /usr/local/bin/gosu
 ```
 
+Create next file:
+
 ```
 nano /usr/local/bin/entrypoint.sh
 ```
@@ -113,7 +115,7 @@ sudo docker rm antares3-datacube-container_v8
 sudo docker run -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/home_madmex_user_conabio_docker_container_results/:/home/madmex_user_conabio/results -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/tmp_docker_container:/tmp -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/shared_volume_docker_container:/shared_volume -e LOCAL_USER_ID=$(id -u madmex_admin) -w=/home/madmex_user_conabio --name antares3-conabio-cluster_v8 --hostname antares3-datacube -p 2224:22 -p 9796:8786 -p 8887:8887 -p 9797:8787 -p 9798:8788 -p 9789:8789 -p 9999:9999 --entrypoint=/usr/local/bin/entrypoint.sh -dit madmex/my_image-conabio-cluster:v_my_version /bin/bash
 ```
 
-# Enter and restart ssh to enter via ssh:
+# Enter and restart ssh to login via ssh:
 
 ```
 sudo docker exec -u=madmex_user_conabio -it antares3-conabio-cluster_v8 bash
