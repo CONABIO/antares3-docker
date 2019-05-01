@@ -25,6 +25,10 @@ curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/downloa
 change permissions:
 
 ```
+chmod gou+x /usr/local/bin/gosu
+```
+
+```
 nano /usr/local/bin/entrypoint.sh
 ```
 
