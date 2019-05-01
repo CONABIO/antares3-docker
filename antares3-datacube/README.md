@@ -13,7 +13,7 @@ sudo docker run --user=root -e LOCAL_USER_ID=$(id -u madmex_admin) --name antare
 sudo docker exec -it antares3-datacube-container_v8 bash
 ```
 
-# Properly mount LUSTRE
+## Properly mount LUSTRE
 
 ```
 gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
@@ -109,13 +109,13 @@ sudo docker stop antares3-datacube-container_v8
 sudo docker rm antares3-datacube-container_v8
 ```
 
-# Run:
+## Run:
 
 ```
 sudo docker run -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/home_madmex_user_conabio_docker_container_results/:/home/madmex_user_conabio/results -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/tmp_docker_container:/tmp -v /LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8/shared_volume_docker_container:/shared_volume -e LOCAL_USER_ID=$(id -u madmex_admin) -w=/home/madmex_user_conabio --name antares3-conabio-cluster_v8 --hostname antares3-datacube -p 2224:22 -p 9796:8786 -p 8887:8887 -p 9797:8787 -p 9798:8788 -p 9789:8789 -p 9999:9999 --entrypoint=/usr/local/bin/entrypoint.sh -dit madmex/my_image-conabio-cluster:v_my_version /bin/bash
 ```
 
-# Enter and restart ssh to login via ssh:
+Enter and restart ssh to login via ssh:
 
 ```
 sudo docker exec -u=madmex_user_conabio -it antares3-conabio-cluster_v8 bash
@@ -123,16 +123,20 @@ sudo docker exec -u=madmex_user_conabio -it antares3-conabio-cluster_v8 bash
 sudo service ssh restart
 ```
 
-#we can edit .antares either:
+We can edit .antares either:
 
-#here:
+here:
 
+```
 /home/madmex_user_conabio/.antares
+```
 
-#or here:
+or here:
 
+```
 /shared_volume/.antares
+```
 
-#same apply to .datacube.conf or .jupyter/jupyter_notebook_config.py 
+same apply to .datacube.conf or .jupyter/jupyter_notebook_config.py 
 
 
