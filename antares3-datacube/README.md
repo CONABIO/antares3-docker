@@ -123,7 +123,7 @@ sudo docker exec -u=madmex_user_conabio -it antares3-conabio-cluster_v8 bash
 sudo service ssh restart
 ```
 
-We can edit .antares either:
+We can edit ```.antares``` either:
 
 here:
 
