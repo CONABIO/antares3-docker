@@ -100,7 +100,7 @@ change permissions:
 chmod gou+x /usr/local/bin/entrypoint.sh
 ```
 
-#exit of docker container, commit changes to a image and then push to dockerhub
+exit of docker container, commit changes to a image and then push to dockerhub
 
 ```
 sudo docker commit antares3-datacube-container_v8 madmex/my_image-conabio-cluster:v_my_version
@@ -137,6 +137,6 @@ or here:
 /shared_volume/.antares
 ```
 
-same apply to .datacube.conf or .jupyter/jupyter_notebook_config.py 
+same apply to ```.datacube.conf``` or ```.jupyter/jupyter_notebook_config.py```
 
 
