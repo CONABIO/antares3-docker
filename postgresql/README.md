@@ -55,10 +55,11 @@ sudo docker exec -u=postgres -it postgresql-conabio-cluster-container /home/post
 
 Enter and restart `ssh`
 
-`
+```
 sudo docker exec -u=postgres -it postgresql-conabio-cluster-container  bash
+
 sudo service ssh restart
-`
+```
 
 to login:
 
