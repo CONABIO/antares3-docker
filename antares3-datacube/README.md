@@ -122,7 +122,7 @@ same apply to ```.datacube.conf``` or ```.jupyter/jupyter_notebook_config.py```
 To login via ssh just do a:
 
 ```
-ssh -o ServerAliveInterval=60 -p 2224 madmex_user_conabio@nodo5
+ssh -o ServerAliveInterval=60 -p 2224 madmex_user@nodo5
 ```
 
 and same password :)
