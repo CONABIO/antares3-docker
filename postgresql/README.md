@@ -67,4 +67,5 @@ to login:
 ssh -p 2225 postgres@nodo5.conabio.gob.mx
 `
 
+and same password :)
 
