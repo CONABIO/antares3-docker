@@ -1,24 +1,27 @@
-Directories on LUSTRE
+Clone: https://github.com/CONABIO/antares3-docker.git into /LUSTRE/MADMEX/docker_antares/postgresql_volume_docker
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql`
+Create some useful directories:
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/log/postgresql`
+```
+dir=/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql`
+sudo git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
+chmod -R gou+wrx $dir/antares3-docker
 
-So that our tmp directory do not interfer with the apt-get update, we must give permissions to this folder.
+sudo mkdir $dir
+sudo mkdir -p $dir/etc/postgresql
+sudo mkdir -p $dir/var/log/postgresql
+sudo mkdir -p $dir/var/lib/postgresql
+sudo mkdir -p $dir/tmp_postgresql/
+chmod -R gou+wrx $dir/*
+```
 
-`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/tmp_postgresql/`
+Build (outside of container):
 
-Postgres libraries
-
-`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/setup.sh`
-
-Build of docker image:
-
-`docker build -t postgresql-antares3-datacube .`
+```
+sudo docker build -t madmex/postgresql-antares3-datacube-conabio-cluster:v1 .
+```
 
 Mapping of directories on postgresql-datacube container:
 
@@ -32,16 +35,35 @@ Mapping of directories on postgresql-datacube container:
 Run command:
 
 ```
+dir=/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker/
+
+
 sudo docker run \
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/etc/postgresql:/etc/postgresql \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/log/postgresql:/var/log/postgresql \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker/postgres_volume_docker/var/lib/postgresql:/var/lib/postgresql \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
--e LOCAL_USER_ID=$(id -u madmex_admin) -p 2226:22 -p 5432:5432 --name postgresql-datacube-container --hostname postgresql-datacube \
--dit postgresql-antares3-datacube /bin/bash
+-v $dir/etc/postgresql:/etc/postgresql \
+-v $dir/var/log/postgresql:/var/log/postgresql \
+-v $dir/var/lib/postgresql:/var/lib/postgresql \
+-v $dir/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
+-w /home/postgres \
+-e LOCAL_USER_ID=$(id -u madmex_admin) -p 2225:22 -p 5432:5432 --name postgresql-conabio-cluster-container --hostname postgresql-datacube \
+-dit madmex/postgresql-antares3-datacube-conabio-cluster:v1 /bin/bash
 ```
 
 Execute setup.sh
 
-`sudo docker exec -u=postgres -it postgresql-datacube-container /home/postgres/conf/setup.sh`
+`
+sudo docker exec -u=postgres -it postgresql-conabio-cluster-container /home/postgres/conf/setup.sh
+`
+
+`
+sudo docker exec -u=postgres -it postgresql-conabio-cluster-container  bash
+sudo service ssh restart
+`
+
+to login:
+
+`
+ssh -p 2225 postgres@nodo5.conabio.gob.mx
+`
+
+
