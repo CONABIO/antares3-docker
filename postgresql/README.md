@@ -1,4 +1,4 @@
-Clone: https://github.com/CONABIO/antares3-docker.git into /LUSTRE/MADMEX/docker_antares/postgresql_volume_docker
+Clone: https://github.com/CONABIO/antares3-docker.git into `/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker`
 
 Create some useful directories:
 
@@ -13,7 +13,6 @@ sudo mkdir $dir
 sudo mkdir -p $dir/etc/postgresql
 sudo mkdir -p $dir/var/log/postgresql
 sudo mkdir -p $dir/var/lib/postgresql
-sudo mkdir -p $dir/tmp_postgresql/
 chmod -R gou+wrx $dir/*
 ```
 
@@ -27,7 +26,6 @@ Mapping of directories on postgresql-datacube container:
 
 `/etc/postgresql , /var/log/postgresql , /var/lib/postgresql` (backup of config, logs and databases )
 
-`/tmp/` (intermediary results)
 
 `/home/postgres/conf/` (configurations as setup.sh and entrypoint.sh to use postgres as madmex_admin and can rw on LUSTRE)
 
@@ -54,6 +52,8 @@ Execute setup.sh
 `
 sudo docker exec -u=postgres -it postgresql-conabio-cluster-container /home/postgres/conf/setup.sh
 `
+
+Enter and restart `ssh`
 
 `
 sudo docker exec -u=postgres -it postgresql-conabio-cluster-container  bash
