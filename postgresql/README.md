@@ -19,7 +19,7 @@ chmod -R gou+wrx $dir/*
 Build (outside of container):
 
 ```
-sudo docker build -t madmex/postgresql-antares3-datacube-conabio-cluster:v1 .
+sudo docker build -t madmex/postgresql-antares3-datacube-my_image:v_my_version .
 ```
 
 Mapping of directories on postgresql-datacube container:
