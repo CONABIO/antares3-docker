@@ -145,7 +145,7 @@ To login to jupyterlab exec to docker container and then:
 jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 
-**Don't forget to re install antares3 every time you change code:
+**Don't forget to re install antares3 every time you change code:**
 
 ```
 pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps && /home/madmex_user/.local/bin/antares init
