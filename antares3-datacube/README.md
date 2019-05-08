@@ -150,3 +150,10 @@ jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps && /home/madmex_user/.local/bin/antares init
 ```
+
+Use credentials of AWS with environmental variables:
+
+```
+export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
+export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
+```
