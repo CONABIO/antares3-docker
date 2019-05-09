@@ -151,6 +151,7 @@ jupyter lab --ip=0.0.0.0 --no-browser &
 <node where jupyterlab is deployed>:9999
 ```
 
+and login with password :)
 
 **Don't forget to re install antares3 every time you change code:**
 
