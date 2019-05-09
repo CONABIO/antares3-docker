@@ -145,7 +145,7 @@ To login to jupyterlab exec to docker container and then:
 jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 
-acces to jupyterlab using:
+## acces to jupyterlab using:
 
 ```
 <node where jupyterlab is deployed>:9999
