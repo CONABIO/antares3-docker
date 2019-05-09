@@ -148,7 +148,10 @@ jupyter lab --ip=0.0.0.0 --no-browser &
 **Don't forget to re install antares3 every time you change code:**
 
 ```
-pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps && /home/madmex_user/.local/bin/antares init
+pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps
+
+#execute antares init but be CAREFUL to check .antares, .datacube.conf (credentials for DB for example)
+/home/madmex_user/.local/bin/antares init
 ```
 
 Use credentials of AWS with environmental variables:
