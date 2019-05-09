@@ -145,6 +145,13 @@ To login to jupyterlab exec to docker container and then:
 jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 
+acces to jupyterlab using:
+
+```
+<node where jupyterlab is deployed>:9999
+```
+
+
 **Don't forget to re install antares3 every time you change code:**
 
 ```
