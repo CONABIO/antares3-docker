@@ -158,7 +158,7 @@ and login with password :)
 ```
 pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps
 
-#execute antares init but be CAREFUL to check .antares, .datacube.conf (credentials for DB for example)
+#execute antares init but be CAREFUL to check .antares, .datacube.conf (credentials for DB for example) before executing antares init cmd
 /home/madmex_user/.local/bin/antares init
 ```
 
