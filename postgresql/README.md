@@ -35,7 +35,6 @@ Run command:
 ```
 dir=/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker/
 
-
 sudo docker run \
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
 -v $dir/etc/postgresql:/etc/postgresql \
@@ -67,5 +66,13 @@ to login:
 ssh -p 2225 postgres@nodo5.conabio.gob.mx
 `
 
-and same password :)
+and same password of antares3-datacube container :)
+
+Create some spatial indexes:
+
+`
+psql -d antares_datacube
+CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
+CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
+`
 
