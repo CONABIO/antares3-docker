@@ -142,6 +142,7 @@ and same password :)
 To login to jupyterlab exec to docker container and then:
 
 ```
+cd /
 jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 
