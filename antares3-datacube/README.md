@@ -72,6 +72,9 @@ sed -i "s/c.NotebookApp.keyfile = .*/#c.NotebookApp.keyfile =/" /shared_volume/.
 
 sed -i "s/c.NotebookApp.password = .*/c.NotebookApp.password = u'<misha>'/" /shared_volume/.jupyter/jupyter_notebook_config.py
 
+echo 'export GDAL_DATA=/usr/share/gdal/' >> /home/madmex_user/.profile
+
+
 #some missing files:
 
 exec /usr/local/bin/gosu madmex_user "$@"
