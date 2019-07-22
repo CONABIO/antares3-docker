@@ -175,3 +175,17 @@ pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrad
 export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
 export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
 ```
+
+## Init Antares3
+
+
+```
+antares init #make sure .antares file point's to DB properly
+```
+
+**Create some indexes**
+
+```
+CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
+CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
+```
