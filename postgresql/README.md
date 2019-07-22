@@ -3,17 +3,15 @@ Clone: https://github.com/CONABIO/antares3-docker.git into `/LUSTRE/MADMEX/docke
 Create some useful directories:
 
 ```
-dir=/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker
+dir=/LUSTRE/MADMEX/docker_antares3/postgresql_volume_docker
 
-sudo git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
+mkdir $dir
 
-chmod -R gou+wrx $dir/antares3-docker
+git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 
-sudo mkdir $dir
-sudo mkdir -p $dir/etc/postgresql
-sudo mkdir -p $dir/var/log/postgresql
-sudo mkdir -p $dir/var/lib/postgresql
-chmod -R gou+wrx $dir/*
+mkdir -p $dir/etc/postgresql
+mkdir -p $dir/var/log/postgresql
+mkdir -p $dir/var/lib/postgresql
 ```
 
 Build (outside of container):
@@ -33,7 +31,6 @@ Mapping of directories on postgresql-datacube container:
 Run command:
 
 ```
-dir=/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker/
 
 sudo docker run \
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
@@ -72,7 +69,6 @@ Create some spatial indexes:
 
 ```
 psql -d antares_datacube
-CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
-CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
+
 ```
 
