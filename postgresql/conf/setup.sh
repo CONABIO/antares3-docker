@@ -1,5 +1,6 @@
 #!/bin/bash
 nombre_base_de_datos=antares_datacube
+sudo apt-get update
 sudo service ssh restart
 sudo apt-get install -y \
             postgresql \
