@@ -1,4 +1,3 @@
-Clone: https://github.com/CONABIO/antares3-docker.git into `/LUSTRE/MADMEX/docker_antares/postgresql_volume_docker`
 
 Create some useful directories:
 
