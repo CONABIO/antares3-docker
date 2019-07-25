@@ -157,15 +157,6 @@ jupyter lab --ip=0.0.0.0 --no-browser &
 
 and login with password :)
 
-**Don't forget to re install antares3 every time you change code:**
-
-```
-pip3 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade --no-deps
-
-#execute antares init but be CAREFUL to check .antares, .datacube.conf (credentials for DB for example) before executing antares init cmd
-/home/madmex_user/.local/bin/antares init
-```
-
 
 ## Use credentials of AWS with environmental variables: 
 
@@ -189,3 +180,10 @@ antares init #make sure .antares file point's to DB properly
 CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
 CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
 ```
+
+**Don't forget to re install antares3 every time you change code:**
+
+```
+pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
+```
+
