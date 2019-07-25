@@ -65,10 +65,3 @@ ssh -p 2225 postgres@nodo5.conabio.gob.mx
 
 and same password of antares3-datacube container :)
 
-Create some spatial indexes:
-
-```
-psql -d antares_datacube
-
-```
-
