@@ -1,28 +1,17 @@
-FROM ubuntu:latest
-MAINTAINER Ixchel Meza
+FROM ubuntu:xenial
+MAINTAINER Erick Palacios-Moreno
 
-EXPOSE 22 8887
-
-RUN apt-get update
-
-RUN apt-get install -y locales
-
-#RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
- #   locale-gen
 ENV LANG C.UTF-8
-#ENV LANGUAGE en_US:en  
 ENV LC_ALL C.UTF-8
 
 # install basic packages
-RUN apt-get install -y tzdata
-RUN apt-get install -y \
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && echo "America/Mexico_City" > /etc/timezone && apt-get install -y tzdata locales\
 	openssh-server \
 	openssl \
 	sudo \
 	wget \
 	nano \
 	software-properties-common \
-#	python-software-properties \
 	git \
 	vim \
 	vim-gtk \
@@ -32,12 +21,13 @@ RUN apt-get install -y \
 	libffi-dev \
 	python3-dev \
 	cmake \
-	python-pip \
 	python3-pip \
-	python-setuptools \
 	python3-setuptools \
 	ca-certificates \
-	curl
+	curl \
+        postgresql-client \
+        libudunits2-dev \
+        nodejs && pip3 install --upgrade pip
 
 # Install spatial libraries
 RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable && apt-get -qq update
@@ -52,8 +42,6 @@ RUN apt-get install -y \
 	libgdal-dev
 
 # Python stuff from root
-RUN pip install --upgrade pip
-RUN pip install virtualenv virtualenvwrapper
 RUN pip3 install virtualenv virtualenvwrapper
 
 # Properly mount LUSTRE
