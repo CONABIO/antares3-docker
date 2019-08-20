@@ -2,6 +2,8 @@
 nombre_base_de_datos=antares_datacube
 sudo apt-get update
 sudo service ssh restart
+cp /etc/skel/.bashrc /home/postgres/.
+cp /etc/skel/.profile /home/postgres/.
 sudo apt-get install -y \
             postgresql \
             postgresql-client \
@@ -16,6 +18,4 @@ psql --command "CREATE EXTENSION postgis;"
 sudo /etc/init.d/postgresql restart
 echo "export LC_ALL=C.UTF-8" >> ~/.profile
 echo "export LANG=C.UTF-8" >> ~/.profile
-cp /etc/skel/.bashrc /home/postgres/.
-cp /etc/skel/.profile /home/postgres/.
 createdb $nombre_base_de_datos
