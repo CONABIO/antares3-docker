@@ -153,7 +153,7 @@ datacube -v system init #make sure .datacube.conf file point's to DB properly
 **Create some spatial indexes**
 
 ```
-psql -d antares_datacube
+psql -U postgres -d antares_datacube -h <conabio's node> #check node where postgresql container is deployed
 CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
 CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
 ```
