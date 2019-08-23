@@ -201,11 +201,12 @@ export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
 export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
 ```
 
-## Init Antares3
-
+# Init antares3 & datacube
 
 ```
 antares init #make sure .antares file point's to DB properly
+
+datacube -v system init #make sure .datacube.conf file point's to DB properly
 ```
 
 **Create some spatial indexes**
@@ -222,3 +223,33 @@ CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the
 pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
 ```
 
+# Dask scheduler
+
+```
+dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
+```
+
+# Bash script to launch dask workers:
+
+
+`launch_dask_workers.sh`
+
+```
+#!/bin/bash
+
+
+dir=/Users/<miuser>/Documents/antares3-datacube-volume-docker
+
+for i in $(seq $1);do docker run --name antares3-local_worker_$i -v $dir/shared_volume_docker_container:/shared_volume --hostname antares3-datacube -p 970$i:8786 -dit madmex/madmex_local:v8 /bin/bash;done
+
+for i in $(seq $1);do docker exec -it antares3-local_worker_$i /usr/local/bin/entrypoint.sh;done
+
+for i in $(seq $1);do docker exec -it -u=madmex_user antares3-local_worker_$i /bin/bash -c 'pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps && /home/madmex_user/.local/bin/antares init';done
+
+for i in $(seq $1);do docker exec -d -u=madmex_user antares3-local_worker_$i dask-worker --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit 4GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json;done
+
+```
+
+Execute bash script and select number of dask workers:
+
+`bash launch_dask_workers.sh <number of dask workers>`
