@@ -54,7 +54,7 @@ change permissions:
 chmod gou+x /usr/local/bin/entrypoint.sh
 ```
 
-exit of docker container, commit changes to a image and then push to dockerhub
+exit of docker container, commit changes to a image and then (optionally) push it to dockerhub
 
 ```
 docker commit antares3-datacube-container_v8 madmex/madmex_local:v8
