@@ -70,3 +70,10 @@ CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST 
 CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
 ```
 
+# Note:
+
+If postgres container stopped then start it again, exec into it with postgres user and:
+
+```
+sudo /etc/init.d/postgresql start
+```
