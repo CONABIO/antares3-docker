@@ -63,5 +63,5 @@ to login:
 ssh -p 2225 postgres@nodo5.conabio.gob.mx
 `
 
-and password in `entry_point.sh` 
+and password in `conf/entrypoint.sh` 
 
