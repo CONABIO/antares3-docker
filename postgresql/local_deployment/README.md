@@ -1,9 +1,8 @@
 
-Create some useful directories:
+# Set local directory, create it and clone repo:
 
 ```
-dir=/LUSTRE/MADMEX/docker_antares3/postgresql_volume_docker
-
+dir=/Users/<miuser>/Documents/postgresql_volume_docker
 mkdir $dir
 
 git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
@@ -17,7 +16,8 @@ Build (outside of container):
 
 ```
 cd $dir/antares3-docker/postgresql
-sudo docker build -t madmex/postgresql-antares3-datacube-my_image:v_my_version .
+
+docker build -t madmex/postgresql-madmex-local:v8 .
 ```
 
 Mapping of directories on postgresql-datacube container:
@@ -28,25 +28,24 @@ Mapping of directories on postgresql-datacube container:
 `/home/postgres/conf/` (configurations as setup.sh and entrypoint.sh to use postgres as madmex_admin and can rw on LUSTRE)
 
 
-Run command:
+# Docker run
 
 ```
-sudo docker run \
--v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
--v $dir/etc/postgresql:/etc/postgresql \
+docker run -v $dir/etc/postgresql:/etc/postgresql \
 -v $dir/var/log/postgresql:/var/log/postgresql \
 -v $dir/var/lib/postgresql:/var/lib/postgresql \
 -v $dir/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
 -w /home/postgres \
--e LOCAL_USER_ID=$(id -u madmex_admin) -p 2225:22 -p 5432:5432 --name postgresql-conabio-cluster-container --hostname postgresql-datacube \
--dit madmex/postgresql-antares3-datacube-conabio-cluster:v1 /bin/bash
+-p 2225:22 -p 5432:5432 --name postgresql-local --hostname postgresql-madmex \
+-dit madmex/postgresql-madmex-local:v8 /bin/bash
 ```
 
-Execute setup.sh
+Execute entrypoint.sh & setup.sh
 
-`
-sudo docker exec -u=postgres -it postgresql-conabio-cluster-container /home/postgres/conf/setup.sh
-`
+```
+docker exec -it postgresql-local /usr/local/bin/entrypoint.sh
+docker exec -u=postgres -it postgresql-local /home/postgres/conf/setup.sh
+```
 
 Enter and restart `ssh`
 
@@ -59,7 +58,7 @@ sudo service ssh restart
 to login:
 
 `
-ssh -p 2225 postgres@nodo5.conabio.gob.mx
+ssh -p 2225 postgres@<local node>
 `
 
 and password in `conf/entrypoint.sh` 
