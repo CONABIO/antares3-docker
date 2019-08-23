@@ -117,7 +117,7 @@ default_environment: datacube
 #default_environment: s3aio_env
 
 [datacube]
-db_hostname: nodo5
+db_hostname: <local node>
 db_database: datacube_cluster_2
 db_username: madmex_user
 db_password: qwerty
@@ -125,7 +125,7 @@ db_password: qwerty
 execution_engine.use_s3: False
 
 [s3aio_env]
-db_hostname: nodo5
+db_hostname: <local node>
 db_database: datacube_cluster_2
 db_username: madmex_user
 db_password: qwerty
@@ -148,7 +148,7 @@ ALLOWED_HOSTS=
 DATABASE_NAME=datacube_cluster
 DATABASE_USER=madmex_user
 DATABASE_PASSWORD=qwerty
-DATABASE_HOST=nodo5
+DATABASE_HOST=<local node>
 DATABASE_PORT=5432
 # Datacube
 SERIALIZED_OBJECTS_DIR=/home/madmex_user/datacube_ingest/serialized_objects/
@@ -171,7 +171,7 @@ SEGMENTATION_BUCKET=<name of bucket>
 To login via ssh restart ssh service `sudo service ssh restart` inside of container and then just do a:
 
 ```
-ssh -o ServerAliveInterval=60 -p 2224 madmex_user@nodo5
+ssh -o ServerAliveInterval=60 -p 2222 madmex_user@<local node>
 ```
 
 and same password :)
