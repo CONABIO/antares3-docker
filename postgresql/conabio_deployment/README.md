@@ -31,7 +31,6 @@ Mapping of directories on postgresql-datacube container:
 Run command:
 
 ```
-
 sudo docker run \
 -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
 -v $dir/etc/postgresql:/etc/postgresql \
