@@ -13,8 +13,9 @@ mkdir -p $dir/shared_volume_docker_container
 
 # Clone repo
 
+```
 git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
-
+```
 
 # Build docker image
 
@@ -22,7 +23,6 @@ git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 cd $dir/antares3-docker/antares3-datacube/conabio_deployment/
 
 sudo docker build -t antares3-datacube:v2 .
-
 ```
 
 # Docker run
@@ -166,6 +166,5 @@ pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch
 
 ```
 dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
-
 ```
 
