@@ -24,22 +24,19 @@ export PATH="/home/madmex_user/.local/bin:$PATH"
 echo 'export PATH=/home/madmex_user/.local/bin:$PATH' >> ~/.profile
 
 python3.6 -m pip install --upgrade pip==19.2.2
-python3.6 -m pip install --user six==1.11.0
-python3.6 -m pip install --user numpy pandas xarray
-python3.6 -m pip install --user jupyter jupyterlab
-python3.6 -m pip install --user dask distributed
-python3.6 -m pip install --upgrade --user python-dateutil
-python3.6 -m pip install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
+pip3.6 install --user six==1.11.0
+pip3.6 install --user numpy pandas xarray
+pip3.6 install --user jupyter jupyterlab
+pip3.6 install --user dask distributed
+pip3.6 install --upgrade --user python-dateutil
+pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 
-python3.6 -m pip install --user rasterio --no-binary rasterio
-python3.6 -m pip install --user scipy sklearn cloudpickle xgboost lightgbm fiona django --no-binary fiona
-python3.6 -m pip install --user --no-cache --no-binary :all: psycopg2
-
-python3.6 -m pip install --user datacube[s3]==v1.7.0
-python3.6 -m pip install --user boto3 botocore awscli --upgrade
-
-python3.6 -m pip install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade
-
+pip3.6 install --user rasterio --no-binary rasterio
+pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django --no-binary fiona
+pip3.6 install --user --no-cache --no-binary :all: psycopg2
+pip3.6 install --user datacube[s3]==v1.7.0
+pip3.6 install --user boto3 botocore awscli --upgrade
+pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade
 
 #create .jupyter directory
 jupyter notebook --generate-config
