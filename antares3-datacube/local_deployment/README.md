@@ -1,56 +1,28 @@
-To avoid having packages and dependencies different we use same image in docker hub to deploy k8s deployment and dummy cluster
+To avoid having different packages and dependencies we use same image in docker hub to deploy k8s deployment and dummy cluster locally without LUSTRE. This docker image uses a `bionic` version of ubuntu.
 
-And we change few things regarding permissions to write in LUSTRE...
 
-```
-sudo docker pull my_image:v_my_version
-```
-
-Make a few changes:
+# Run docker container
 
 ```
-sudo docker run --user=root -e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container_v8 --hostname antares3-datacube -dit my_image:v_my_version /bin/bash
-sudo docker exec -it antares3-datacube-container_v8 bash
+docker run --user=root --name antares3-datacube-container_v8 --hostname antares3-datacube -dit madmex/antares3-k8s-cluster-dependencies:v8 /bin/bash
 ```
 
-## Properly mount LUSTRE
+
+# Enter & create next file:
 
 ```
-gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
-curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture)" \
-    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.4/gosu-$(dpkg --print-architecture).asc" \
-    && gpg --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu 
-```
-
-change permissions:
-
-```
-chmod gou+x /usr/local/bin/gosu
-```
-
-Create next file:
-
-```
+docker exec -it antares3-datacube-container_v8 bash
 nano /usr/local/bin/entrypoint.sh
 ```
 
 ```
 #!/bin/bash
 
-# Either use the LOCAL_USER_ID if passed in at runtime or
-# fallback
-USER_ID=${LOCAL_USER_ID:-9001}
-
-echo "Starting with UID : $USER_ID"
 export HOME=/home/madmex_user
 chown madmex_user:madmex_user -R /tmp
+chown madmex_user:madmex_user -R /shared_volume
+chown madmex_user:madmex_user -R /home/madmex_user 
 usermod -aG sudo madmex_user
-
-sudo chmod -R gou+wrx /shared_volume
-
-sudo chmod -R gou+rwx /home/madmex_user/
-
-sudo chmod -R gou+rwx /tmp/
 
 #create .jupyter directory
 
@@ -70,14 +42,10 @@ sed -i "s/c.NotebookApp.certfile = .*/#c.NotebookApp.certfile =/" /shared_volume
 
 sed -i "s/c.NotebookApp.keyfile = .*/#c.NotebookApp.keyfile =/" /shared_volume/.jupyter/jupyter_notebook_config.py
 
-sed -i "s/c.NotebookApp.password = .*/c.NotebookApp.password = u'<misha>'/" /shared_volume/.jupyter/jupyter_notebook_config.py
+sed -i "s/c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:e47d7d0c0c23:22db3ffa5484ff0c18234217279b117a525a337a'/" /shared_volume/.jupyter/jupyter_notebook_config.py
 
 echo 'export GDAL_DATA=/usr/share/gdal/' >> /home/madmex_user/.profile
 
-
-#some missing files:
-
-exec /usr/local/bin/gosu madmex_user "$@"
 ```
 
 change permissions:
@@ -89,33 +57,37 @@ chmod gou+x /usr/local/bin/entrypoint.sh
 exit of docker container, commit changes to a image and then push to dockerhub
 
 ```
-sudo docker commit antares3-datacube-container_v8 madmex/my_image-conabio-cluster:v_my_version
-sudo docker push madmex/my_image-conabio-cluster:v_my_version
-sudo docker stop antares3-datacube-container_v8
-sudo docker rm antares3-datacube-container_v8
+docker commit antares3-datacube-container_v8 madmex/madmex_local:v8
+
+docker stop antares3-datacube-container_v8
+
+docker rm antares3-datacube-container_v8
 ```
 
-## Run:
+# Set local directory and create it:
 
 ```
-dir=/LUSTRE/MADMEX/docker_antares/antares3-k8s-cluster-dependencies_v8
+dir=/Users/<miuser>/Documents/antares3-datacube-volume-docker
+mkdir $dir
+```
 
-sudo docker run -v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
+# Docker run
+
+```
+docker run -v /Volumes/MADMEX:/LUSTRE/MADMEX \
 -v $dir/home_madmex_user_conabio_docker_container_results/:/home/madmex_user/results \
 -v $dir/tmp_docker_container:/tmp \
 -v $dir/shared_volume_docker_container:/shared_volume \
--e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-conabio-cluster_v8_scheduler \
---hostname antares3-datacube -p 2224:22 -p 9796:8786 -p 8887:8887 -p 9797:8787 \
--p 9798:8788 -p 9789:8789 -p 9999:9999 \
---entrypoint=/usr/local/bin/entrypoint.sh \
--dit madmex/antares3-conabio-cluster:v8 /bin/bash
+--name antares3-local \
+--hostname antares3-datacube -p 2224:22 -p 8706:8786 -p 8707:8787 \
+-p 8708:8788 -p 8709:8789 -p 9999:9999 \
+-dit madmex/madmex_local:v8 /bin/bash
 ```
 
-Enter and restart ssh to login via ssh:
+Execute `entrypoint.sh`
 
 ```
-sudo docker exec -u=madmex_user -it antares3-conabio-cluster_v8 bash
-sudo service ssh restart
+docker exec -it antares3-local_scheduler /usr/local/bin/entrypoint.sh
 ```
 
 We can edit ```.antares``` either:
@@ -134,7 +106,69 @@ or here:
 
 same apply to ```.datacube.conf``` or ```.jupyter/jupyter_notebook_config.py```
 
-To login via ssh just do a:
+
+Datacube and MADMex instalations need configuration files. The contents of these files should follow the patterns.
+
+```.datacube.conf```:
+
+```
+[user]
+default_environment: datacube
+#default_environment: s3aio_env
+
+[datacube]
+db_hostname: nodo5
+db_database: datacube_cluster_2
+db_username: madmex_user
+db_password: qwerty
+
+execution_engine.use_s3: False
+
+[s3aio_env]
+db_hostname: nodo5
+db_database: datacube_cluster_2
+db_username: madmex_user
+db_password: qwerty
+
+#index_driver: s3aio_index
+
+execution_engine.use_s3: False
+
+```
+
+```.antares```:
+
+```
+# Django settings
+SECRET_KEY=<key>
+DEBUG=True
+DJANGO_LOG_LEVEL=DEBUG
+ALLOWED_HOSTS=
+# Database
+DATABASE_NAME=datacube_cluster
+DATABASE_USER=madmex_user
+DATABASE_PASSWORD=qwerty
+DATABASE_HOST=nodo5
+DATABASE_PORT=5432
+# Datacube
+SERIALIZED_OBJECTS_DIR=/home/madmex_user/datacube_ingest/serialized_objects/
+INGESTION_PATH=/home/madmex_user/datacube_ingest
+#DRIVER=s3aio
+DRIVER='NetCDF CF'
+#INGESTION_BUCKET=datacube-s2-jalisco-test
+# Query and download
+USGS_USER=<username>
+USGS_PASSWORD=<password>
+SCIHUB_USER=
+SCIHUB_PASSWORD=
+# Misc
+BIS_LICENSE=<license>
+TEMP_DIR=/shared_volume/temp
+SEGMENTATION_BUCKET=<name of bucket>
+```
+
+
+To login via ssh restart ssh service `sudo service ssh restart` inside of container and then just do a:
 
 ```
 ssh -o ServerAliveInterval=60 -p 2224 madmex_user@nodo5
@@ -177,7 +211,7 @@ antares init #make sure .antares file point's to DB properly
 **Create some spatial indexes**
 
 ```
-psql -d antares_datacube
+psql -U postgres -d antares_datacube -h <node> #check node where postgresql container is deployed
 CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
 CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
 ```
