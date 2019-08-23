@@ -1,28 +1,61 @@
-Directories on LUSTRE
+# Set directory in LUSTRE:
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/datacube_ingest`
+```
+dir=/LUSTRE/MADMEX/docker_antares3/conabio_cluster
+```
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/tmp_antares-3`
+# Create some directories:
 
-`mkdir -p /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/credentials`
+```
+mkdir -p $dir/tmp_docker_container
+mkdir -p $dir/shared_volume_docker_container
+```
 
-Python libraries
+# Clone repo
 
-`chmod +x /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/setup.sh`
-
-Build of docker image
-
-`sudo docker build -t antares3-datacube .`
-
-
-Mapping of directories on antares3-datacube container:
-
-`/home/madmex_user/datacube_ingest` (data)
+git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 
 
-`/tmp/` (intermediary results)
+# Build docker image
 
-`/home/madmex_user/conf/` (configurations as setup.sh, .env and entrypoint.sh to use madmex_user as madmex_admin and can rw on LUSTRE)
+```
+cd $dir/antares3-docker/antares3-datacube/conabio_deployment/
+
+sudo docker build -t antares3-datacube:v2 .
+
+```
+
+# Docker run
+
+```
+sudo docker run \
+-v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
+-v $dir/home_madmex_user_conabio_docker_container_results:/home/madmex_user/results \
+-v $dir/shared_volume_docker_container:/shared_volume \
+-v $dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh:/home/madmex_user/conf/setup.sh \
+-e LOCAL_USER_ID=$(id -u madmex_admin) --name conabio-deployment --hostname antares3-datacube -p 2222:22 -p 8706:8786 -p 8707:8787 \
+-p 8708:8788 -p 8709:8789 -p 10000:10000 \
+-dit antares3-datacube:v2 /bin/bash
+```
+
+# Config files
+
+We can edit ```.antares``` either:
+
+here:
+
+```
+/home/madmex_user/.antares
+```
+
+or here:
+
+```
+/shared_volume/.antares
+```
+
+same apply to ```.datacube.conf``` or ```.jupyter/jupyter_notebook_config.py```
+
 
 Datacube and MADMex instalations need configuration files. The contents of these files should follow the patterns.
 
@@ -80,51 +113,59 @@ SCIHUB_USER=
 SCIHUB_PASSWORD=
 # Misc
 BIS_LICENSE=<license>
-TEMP_DIR=/LUSTRE/MADMEX/tasks/2018_tasks/belize_guyana/escenas/suriname/
+TEMP_DIR=/shared_volume/temp
+SEGMENTATION_BUCKET=<name of bucket>
 ```
 
-Run command:
+# Execute setup.sh
+
+`sudo docker exec -u=madmex_user -it conabio-deployment /home/madmex_user/conf/setup.sh`
+
+
+# Jupyterlab
+
+To init jupyter lab ssh into container and execute jupyter lab cmd:
 
 ```
-sudo docker run \
--v /LUSTRE/MADMEX/:/LUSTRE/MADMEX/ \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/datacube_ingest:/home/madmex_user/datacube_ingest \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/tmp_antares-3:/tmp/ \
--v <directory that contains datacube conf file>/.datacube.conf:/home/madmex_user/conf/.datacube.conf \
--v <directory that contains antares conf file>/.env:/home/madmex_user/conf/.antares \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/git/antares3-docker/antares3-datacube/conf/setup.sh:/home/madmex_user/conf/setup.sh \
--v /LUSTRE/MADMEX/tasks/2018_tasks/datacube_madmex/datacube_directories_mapping_docker_2/credentials:/home/madmex_user/credentials \
--e LOCAL_USER_ID=$(id -u madmex_admin) --name antares3-datacube-container --hostname antares3-datacube -p 2224:22 -p 9796:8786 -p 8887:8887 \
--p 9797:8787 -p 9798:8788 -p 9789:8789 -p 9999:9999 \
--dit antares3-datacube  /bin/bash
+ssh -o ServerAliveInterval=60 -p 2222 madmex_user@<node of conabio>
+cd /
+jupyter lab --ip=0.0.0.0 --no-browser &
 ```
 
-Execute setup.sh
+# Use credentials of AWS with environmental variables: 
 
-`sudo docker exec -u=madmex_user -it antares3-datacube-container /home/madmex_user/conf/setup.sh`
-
-
-To init jupyter lab first create a configuration file with:
-
-`jupyter notebook --generate-config`
-
-Select port of your preference, for example 9999:
-
-`sed -i 's/#c.NotebookApp.port = .*/c.NotebookApp.port = 9999/' ~/.jupyter/jupyter_notebook_config.py`
-
-and init jupyter lab with:
-
-`jupyter lab --ip=0.0.0.0 --no-browser &`
-
-Also you can configure aws security credentials using aws config cmd line:
-
-`aws config`
-
-and create `~/.aws/config` with proper content:
+**avoid creating/using .aws/credentials file** instead work with **environmental variables**
 
 ```
-[default]
-aws_access_key_id=
-
-aws_secret_access_key=
+export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
+export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
 ```
+
+# Init Antares3
+
+
+```
+antares init #make sure .antares file point's to DB properly
+```
+
+**Create some spatial indexes**
+
+```
+psql -d antares_datacube
+CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
+CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
+```
+
+**Don't forget to re install antares3 every time you change code:**
+
+```
+pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
+```
+
+# Dask scheduler
+
+```
+dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
+
+```
+
