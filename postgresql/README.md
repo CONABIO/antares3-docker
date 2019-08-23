@@ -65,3 +65,10 @@ ssh -p 2225 postgres@nodo5.conabio.gob.mx
 
 and password in `conf/entrypoint.sh` 
 
+**Create some spatial indexes**
+
+```
+CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
+CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
+```
+
