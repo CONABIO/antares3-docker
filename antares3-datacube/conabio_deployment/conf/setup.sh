@@ -1,4 +1,6 @@
 #!/bin/bash
+
+#not sure if next two lines are necessary ...
 sudo chmod -R gou+wrx /shared_volume
 sudo chmod -R gou+rwx /home/madmex_user/
 
@@ -7,10 +9,12 @@ sudo apt-get update
 sudo apt-get install -y python3.6
 sudo apt-get install -y python3.6-dev
 
-
+#install nodejs for jupyterlab
 sudo apt-get update
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
+
+#some configs
 sudo service ssh restart
 cp /etc/skel/.bashrc /home/madmex_user/.
 cp /etc/skel/.profile /home/madmex_user/.
@@ -23,6 +27,7 @@ echo "alias python=python3.6" >> /home/madmex_user/.bash_aliases
 export PATH="/home/madmex_user/.local/bin:$PATH"
 echo 'export PATH=/home/madmex_user/.local/bin:$PATH' >> ~/.profile
 
+#use python3.6 and pip3.6 to install packages in ubuntu xenial 16.04
 python3.6 -m pip install --upgrade pip==19.2.2
 pip3.6 install --user six==1.11.0
 pip3.6 install --user numpy pandas xarray
@@ -51,7 +56,7 @@ sudo chown -Rh madmex_user:madmex_user /shared_volume/.jupyter/jupyter_notebook_
 #create symbolic link to /shared_volume/.jupyter:
 ln -sf /shared_volume/.jupyter/jupyter_notebook_config.py /home/madmex_user/.jupyter/jupyter_notebook_config.py
 
-#edit
+#edit conf of jupyter
 
 sed -i "s/#c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:e47d7d0c0c23:22db3ffa5484ff0c18234217279b117a525a337a'/" /shared_volume/.jupyter/jupyter_notebook_config.py
 
@@ -59,11 +64,12 @@ sed -i 's/#c.NotebookApp.port = .*/c.NotebookApp.port = 10000/' /shared_volume/.
 
 echo 'export GDAL_DATA=/usr/share/gdal/2.2' >> /home/madmex_user/.profile
 
+#some configs for antares & datacube
 ln -sf /shared_volume/.antares ~/.antares
 ln -sf /shared_volume/.datacube.conf ~/.datacube.conf
 
 
-#install R
+#install R & extension for jupyterlab integration
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 sudo apt-get install apt-transport-https
 sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/'
