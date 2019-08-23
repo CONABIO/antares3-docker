@@ -141,11 +141,13 @@ export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
 export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
 ```
 
-# Init Antares3
+# Init antares3 & datacube
 
 
 ```
 antares init #make sure .antares file point's to DB properly
+
+datacube -v system init #make sure .datacube.conf file point's to DB properly
 ```
 
 **Create some spatial indexes**
