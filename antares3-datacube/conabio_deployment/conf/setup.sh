@@ -32,7 +32,7 @@ python3.6 -m pip install --upgrade pip==19.2.2
 pip3.6 install --user six==1.11.0
 pip3.6 install --user numpy pandas xarray
 pip3.6 install --user jupyter jupyterlab
-pip3.6 install --user dask distributed
+pip3.6 install --user dask distributed bokeh
 pip3.6 install --upgrade --user python-dateutil
 pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 
