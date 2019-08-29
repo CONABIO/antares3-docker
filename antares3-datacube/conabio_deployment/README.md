@@ -17,7 +17,7 @@ mkdir -p $dir/shared_volume_docker_container
 git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 ```
 
-# Build docker image
+# 1) Build docker image
 
 ```
 cd $dir/antares3-docker/antares3-datacube/conabio_deployment/
@@ -25,7 +25,7 @@ cd $dir/antares3-docker/antares3-datacube/conabio_deployment/
 sudo docker build -t antares3-datacube:v2 .
 ```
 
-# Docker run
+## Docker run
 
 ```
 sudo docker run \
@@ -38,7 +38,7 @@ sudo docker run \
 -dit antares3-datacube:v2 /bin/bash
 ```
 
-# Config files
+## Config files
 
 We can edit ```.antares``` either:
 
@@ -117,22 +117,14 @@ TEMP_DIR=/shared_volume/temp
 SEGMENTATION_BUCKET=<name of bucket>
 ```
 
-# Execute setup.sh
+## Execute setup.sh
 
 `sudo docker exec -u=madmex_user -it conabio-deployment /home/madmex_user/conf/setup.sh`
 
 
-# Jupyterlab
+# 3) Some notes
 
-To init jupyter lab ssh into container and execute jupyter lab cmd:
-
-```
-ssh -o ServerAliveInterval=60 -p 2222 madmex_user@<node of conabio>
-cd /
-jupyter lab --ip=0.0.0.0 --no-browser &
-```
-
-# Use credentials of AWS with environmental variables: 
+## Use credentials of AWS with environmental variables: 
 
 **avoid creating/using .aws/credentials file** instead work with **environmental variables**
 
@@ -141,7 +133,7 @@ export AWS_ACCESS_KEY_ID=<my_access_key_id_aws>
 export AWS_SECRET_ACCESS_KEY=<my_secret_access_key_aws>
 ```
 
-# Init antares3 & datacube
+## Init antares3 & datacube
 
 
 ```
@@ -164,9 +156,75 @@ CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the
 pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
 ```
 
-# Dask scheduler
+# 4) Clúster deployment via docker-swarm
+
+## Set manager and workers of cluster
+
+Choose a node in conabio, for example node5, then:
 
 ```
-dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
+sudo docker swarm init --advertise-addr <ip of node5>
 ```
+
+Last command will output something like:
+
+```
+sudo docker swarm join \
+--token <random token> \
+<ip of node5>:<random port>
+```
+
+This last output need to be executed in every node that will be part of cluster. And we can see which nodes are in our cluster with:
+
+```
+sudo docker node ls
+```
+
+## Create overlay network
+
+```
+sudo docker network create -d overlay overnet
+```
+
+## Deploy services of scheduler and workers with dask & distributed and jupyerlab in scheduler
+
+Set dir:
+
+```
+dir=/LUSTRE/MADMEX/docker_antares3/conabio_cluster
+```
+
+
+### Scheduler
+
+Choose appropiate interface for scheduler in last line of next command:
+
+```
+sudo docker service create --detach=false --name madmex-service-scheduler \
+--network overnet --replicas 1 --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
+--mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
+--mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
+--mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
+-p 8786:8786 -p 8787:8787 -p 10000:10000  \
+madmex/conabio-deployment:v1 \
+/bin/bash -c "cd / && /home/madmex_user/.local/bin/jupyter lab --ip=0.0.0.0 --no-browser & cd ~ && /home/madmex_user/.local/bin/dask-scheduler --interface eth2 --port 8786 --dashboard-address :8787 --scheduler-file /shared_volume/scheduler.json"
+```
+
+
+### Workers
+
+Choose interface, number of workers and memory limit and change them in appropiate place of next command
+
+```
+sudo docker service create --detach=false --name madmex-service-worker \
+--network overnet --replicas 2 --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
+--mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
+--mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
+--mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
+madmex/conabio-deployment:v1 \
+/bin/bash -c "cd ~ && /home/madmex_user/.local/bin/dask-worker --interface eth0 --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit 6GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json"
+```
+
 
