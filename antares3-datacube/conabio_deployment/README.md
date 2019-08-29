@@ -227,4 +227,25 @@ madmex/conabio-deployment:v1 \
 /bin/bash -c "cd ~ && /home/madmex_user/.local/bin/dask-worker --interface eth0 --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit 6GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json"
 ```
 
+### Notes
+
+To check services:
+
+```
+sudo docker service ps madmex-service-scheduler
+```
+
+```
+sudo docker service ps madmex-service-worker
+```
+
+To delete wervices of either scheduler or workers execute:
+
+```
+sudo docker service rm madmex-service-scheduler
+```
+
+```
+sudo docker service rm madmex-service-worker
+```
 
