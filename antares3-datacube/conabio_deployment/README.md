@@ -121,6 +121,24 @@ SEGMENTATION_BUCKET=<name of bucket>
 
 `sudo docker exec -u=madmex_user -it conabio-deployment /home/madmex_user/conf/setup.sh`
 
+## Persist docker images
+
+Commit changes to new image `madmex/conabio-deployment:v1` and tag image antares3-datacube:v2 to `madmex/antares3-datacube:v2`
+
+```
+sudo docker commit conabio-deployment madmex/conabio-deployment:v1
+
+sudo docker tag antares3-datacube:v2 madmex/antares3-datacube:v2
+```
+
+Push images to dockerhub
+
+```
+sudo docker push madmex/conabio-deployment:v1
+
+sudo docker push madmex/antares3-datacube:v2
+```
+
 
 # 3) Some notes
 
