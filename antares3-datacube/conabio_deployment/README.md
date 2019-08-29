@@ -190,6 +190,8 @@ sudo docker network create -d overlay overnet
 
 ## Deploy services of scheduler and workers with dask & distributed and jupyerlab in scheduler
 
+**Scale up**
+
 Set dir:
 
 ```
@@ -242,9 +244,9 @@ cd ~ && \
 ```
 
 
-### Notes
+### Notes (scale down and others...)
 
-To check services:
+**Check nodes where services are deployed**
 
 ```
 sudo docker service ps madmex-service-scheduler
@@ -254,7 +256,7 @@ sudo docker service ps madmex-service-scheduler
 sudo docker service ps madmex-service-worker
 ```
 
-Some logs:
+**Logging**
 
 ```
 sudo docker service logs madmex-service-scheduler
@@ -264,7 +266,7 @@ sudo docker service logs madmex-service-scheduler
 sudo docker service logs madmex-service-worker
 ```
 
-
+**Scale down**
 
 To delete services of either scheduler or workers execute:
 
