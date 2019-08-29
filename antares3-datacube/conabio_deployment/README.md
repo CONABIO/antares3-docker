@@ -241,6 +241,18 @@ sudo docker service ps madmex-service-scheduler
 sudo docker service ps madmex-service-worker
 ```
 
+Some logs:
+
+```
+sudo docker service logs madmex-service-scheduler
+```
+
+```
+sudo docker service logs madmex-service-worker
+```
+
+
+
 To delete services of either scheduler or workers execute:
 
 ```
