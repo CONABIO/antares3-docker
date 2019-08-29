@@ -199,9 +199,10 @@ dir=/LUSTRE/MADMEX/docker_antares3/conabio_cluster
 
 ### Scheduler
 
-Choose appropiate interface for scheduler in last line of next command:
+Choose appropiate interface for scheduler in variable `interface` of  next command:
 
 ```
+interface=eth2
 sudo docker service create --detach=false --name madmex-service-scheduler \
 --network overnet --replicas 1 --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
@@ -209,22 +210,24 @@ sudo docker service create --detach=false --name madmex-service-scheduler \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
 -p 2222:22 -p 8786:8786 -p 8787:8787 -p 10000:10000  \
-service ssh restart \
 madmex/conabio-deployment:v1 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd / && \
 /home/madmex_user/.local/bin/jupyter lab --ip=0.0.0.0 --no-browser &\
-cd ~ && /home/madmex_user/.local/bin/dask-scheduler --interface eth2 --port 8786 --dashboard-address :8787 --scheduler-file /shared_volume/scheduler.json"
+cd ~ && /home/madmex_user/.local/bin/dask-scheduler --interface $interface --port 8786 --dashboard-address :8787 --scheduler-file /shared_volume/scheduler.json"
 ```
 
 
 ### Workers
 
-Choose interface, number of workers and memory limit and change them in appropiate place of next command
+Choose interface, number of workers and memory limit and change them according to your deployment in variables `replicas`, `interface`, `memory` of next command
 
 ```
+replicas=2
+interface=eth0
+memory=6GB
 sudo docker service create --detach=false --name madmex-service-worker \
---network overnet --replicas 2 --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--network overnet --replicas $replicas --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
@@ -233,7 +236,9 @@ madmex/conabio-deployment:v1 \
 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\ 
 /home/madmex_user/.local/bin/antares init &&\
 cd ~ && \
-/home/madmex_user/.local/bin/dask-worker --interface eth0 --nprocs 1 --worker-port 8786 --nthreads 1 --no-dashboard --memory-limit 6GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json"
+/home/madmex_user/.local/bin/dask-worker --interface $interface \
+--nprocs 1 --worker-port 8786 --nthreads 1 --no-dashboard \
+--memory-limit $memory --death-timeout 60 --scheduler-file /shared_volume/scheduler.json"
 ```
 
 
