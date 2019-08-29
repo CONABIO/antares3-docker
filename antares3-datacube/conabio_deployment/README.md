@@ -180,9 +180,9 @@ This last output need to be executed in every node that will be part of cluster.
 sudo docker node ls
 ```
 
-## Create overlay network
+**Next commands need to be executed in node manager (for example node 5)**
 
-Next commands need to be executed in node manager (for example node 5)
+## Create overlay network
 
 ```
 sudo docker network create -d overlay overnet
