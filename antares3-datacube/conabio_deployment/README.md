@@ -182,6 +182,8 @@ sudo docker node ls
 
 ## Create overlay network
 
+Next commands need to be executed in node manager (for example node 5)
+
 ```
 sudo docker network create -d overlay overnet
 ```
