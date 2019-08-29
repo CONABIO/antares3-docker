@@ -222,7 +222,7 @@ cd ~ && /home/madmex_user/.local/bin/dask-scheduler --interface $interface --por
 
 ### Workers
 
-Choose interface, number of workers and memory limit and change them according to your deployment in variables `replicas`, `interface`, `memory` of next command
+Change interface, number of workers and memory limit according to your deployment in variables `replicas`, `interface`, `memory` of next command
 
 ```
 replicas=2
