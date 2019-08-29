@@ -156,7 +156,7 @@ CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the
 pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
 ```
 
-# 4) Clúster deployment via docker-swarm
+# 4) Cluster deployment via docker-swarm
 
 ## Set manager and workers of cluster
 
