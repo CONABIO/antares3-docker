@@ -44,6 +44,10 @@ sed -i "s/c.NotebookApp.keyfile = .*/#c.NotebookApp.keyfile =/" /shared_volume/.
 
 sed -i "s/c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:e47d7d0c0c23:22db3ffa5484ff0c18234217279b117a525a337a'/" /shared_volume/.jupyter/jupyter_notebook_config.py
 
+#some configs for antares & datacube
+ln -sf /shared_volume/.antares ~/.antares
+ln -sf /shared_volume/.datacube.conf ~/.datacube.conf
+
 echo 'export GDAL_DATA=/usr/share/gdal/' >> /home/madmex_user/.profile
 
 ```
