@@ -171,7 +171,7 @@ CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the
 **Don't forget to re install antares3 every time you change code:**
 
 ```
-pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
+pip3.6 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps
 ```
 
 # 4) Cluster deployment via docker-swarm
