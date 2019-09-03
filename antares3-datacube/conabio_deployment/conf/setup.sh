@@ -63,6 +63,7 @@ sed -i "s/#c.NotebookApp.password = .*/c.NotebookApp.password = u'sha1:e47d7d0c0
 sed -i 's/#c.NotebookApp.port = .*/c.NotebookApp.port = 10000/' /shared_volume/.jupyter/jupyter_notebook_config.py
 
 echo 'export GDAL_DATA=/usr/share/gdal/2.2' >> /home/madmex_user/.profile
+echo 'export HDF5_USE_FILE_LOCKING=FALSE' >> /home/madmex_user/.profile
 
 #some configs for antares & datacube
 ln -sf /shared_volume/.antares ~/.antares
