@@ -224,7 +224,7 @@ Choose appropiate interface for scheduler in variable `interface` of  next comma
 ```
 interface=eth2
 sudo docker service create --detach=false --name madmex-service-scheduler \
---network overnet --replicas 1 --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--network overnet --replicas 1 --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
@@ -247,13 +247,13 @@ replicas=2
 interface=eth0
 memory=6GB
 sudo docker service create --detach=false --name madmex-service-worker \
---network overnet --replicas $replicas --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--network overnet --replicas $replicas --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
 madmex/conabio-deployment:v1 \
-/bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\ 
+/bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd ~ && \
 /home/madmex_user/.local/bin/dask-worker --interface $interface \
