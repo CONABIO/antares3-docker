@@ -219,18 +219,20 @@ dir=/LUSTRE/MADMEX/docker_antares3/conabio_cluster
 
 ### Scheduler
 
-Choose appropiate interface for scheduler in variable `interface` of  next command:
+Choose appropiate interface and branch of github of antares3 for scheduler in variable `interface`, `antares_branch` of  next command:
 
 ```
 interface=eth2
+antares_branch=rapideye-support
 sudo docker service create --detach=false --name madmex-service-scheduler \
 --network overnet --replicas 1 --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--env antares_branch=$antares_branch \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
 -p 2222:22 -p 8786:8786 -p 8787:8787 -p 10000:10000  \
-madmex/conabio-deployment:v1 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\
+madmex/conabio-deployment:v1 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd / && \
 /home/madmex_user/.local/bin/jupyter lab --ip=0.0.0.0 --no-browser &\
@@ -240,20 +242,23 @@ cd ~ && /home/madmex_user/.local/bin/dask-scheduler --interface $interface --por
 
 ### Workers
 
-Change interface, number of workers and memory limit according to your deployment in variables `replicas`, `interface`, `memory` of next command
+Change interface, number of workers, memory limit and branch of github of antares3 according to your deployment in variables `replicas`, `interface`, `memory`, `antares_branch` of next command
+
 
 ```
 replicas=2
 interface=eth0
 memory=6GB
+antares_branch=rapideye-support
 sudo docker service create --detach=false --name madmex-service-worker \
 --network overnet --replicas $replicas --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
+--env antares_branch=$antares_branch \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
 madmex/conabio-deployment:v1 \
-/bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade --no-deps &&\
+/bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd ~ && \
 /home/madmex_user/.local/bin/dask-worker --interface $interface \
