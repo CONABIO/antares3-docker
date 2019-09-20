@@ -232,7 +232,7 @@ sudo docker service create --detach=false --name madmex-service-scheduler \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
 -p 2222:22 -p 8786:8786 -p 8787:8787 -p 10000:10000  \
-madmex/conabio-deployment:v1 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps &&\
+madmex/conabio-deployment:v2 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd / && \
 /home/madmex_user/.local/bin/jupyter lab --ip=0.0.0.0 --no-browser &\
@@ -257,7 +257,7 @@ sudo docker service create --detach=false --name madmex-service-worker \
 --mount type=bind,source=$dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh,destination=/home/madmex_user/conf/setup.sh \
 --mount type=bind,source=/LUSTRE/MADMEX/,destination=/LUSTRE/MADMEX/ \
 --mount type=bind,source=$dir/shared_volume_docker_container,destination=/shared_volume \
-madmex/conabio-deployment:v1 \
+madmex/conabio-deployment:v2 \
 /bin/bash -c "/home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps &&\
 /home/madmex_user/.local/bin/antares init &&\
 cd ~ && \
