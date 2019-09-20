@@ -16,6 +16,7 @@ sudo apt-get install -y nodejs
 
 #some configs
 sudo service ssh restart
+antares_branch=rapideye-support
 cp /etc/skel/.bashrc /home/madmex_user/.
 cp /etc/skel/.profile /home/madmex_user/.
 echo "export LC_ALL=C.UTF-8" >> ~/.profile
@@ -41,7 +42,8 @@ pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django --
 pip3.6 install --user --no-cache --no-binary :all: psycopg2
 pip3.6 install --user datacube[s3]==v1.7.0
 pip3.6 install --user boto3 botocore awscli --upgrade
-pip3.6 install --user git+https://github.com/CONABIO/antares3.git@training-data-model-fit --upgrade
+pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade
+pip3.6 install --user sentinelsat
 
 #create .jupyter directory
 jupyter notebook --generate-config
