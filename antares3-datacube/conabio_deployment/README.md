@@ -22,7 +22,7 @@ git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 ```
 cd $dir/antares3-docker/antares3-datacube/conabio_deployment/
 
-sudo docker build -t antares3-datacube:v2 .
+sudo docker build -t antares3-datacube:v3 .
 ```
 
 ## Docker run
@@ -35,7 +35,7 @@ sudo docker run \
 -v $dir/antares3-docker/antares3-datacube/conabio_deployment/conf/setup.sh:/home/madmex_user/conf/setup.sh \
 -e LOCAL_USER_ID=$(id -u madmex_admin) --name conabio-deployment --hostname antares3-datacube -p 2222:22 -p 8706:8786 -p 8707:8787 \
 -p 8708:8788 -p 8709:8789 -p 10000:10000 \
--dit antares3-datacube:v2 /bin/bash
+-dit antares3-datacube:v3 /bin/bash
 ```
 
 ## Config files
@@ -126,17 +126,17 @@ SEGMENTATION_BUCKET=<name of bucket>
 Commit changes to new image `madmex/conabio-deployment:v1` and tag image antares3-datacube:v2 to `madmex/antares3-datacube:v2`
 
 ```
-sudo docker commit conabio-deployment madmex/conabio-deployment:v1
+sudo docker commit conabio-deployment madmex/conabio-deployment:v2
 
-sudo docker tag antares3-datacube:v2 madmex/antares3-datacube:v2
+sudo docker tag antares3-datacube:v2 madmex/antares3-datacube:v3
 ```
 
 Push images to dockerhub
 
 ```
-sudo docker push madmex/conabio-deployment:v1
+sudo docker push madmex/conabio-deployment:v2
 
-sudo docker push madmex/antares3-datacube:v2
+sudo docker push madmex/antares3-datacube:v3
 ```
 
 
