@@ -23,8 +23,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && echo "America/Mex
 	cmake \
 	python3-pip \
 	python3-setuptools \
+        python-gdal \
 	ca-certificates \
 	curl \
+   	tmux \
         postgresql-client \
         libudunits2-dev \
         nodejs && pip3 install --upgrade pip
