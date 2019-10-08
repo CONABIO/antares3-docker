@@ -34,7 +34,7 @@ Mapping of directories on postgresql-datacube container:
 docker run -v $dir/etc/postgresql:/etc/postgresql \
 -v $dir/var/log/postgresql:/var/log/postgresql \
 -v $dir/var/lib/postgresql:/var/lib/postgresql \
--v $dir/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
+-v $dir/antares3-docker/postgresql/local_deployment/conf/:/home/postgres/conf/ \
 -w /home/postgres \
 -p 2225:22 -p 5432:5432 --name postgresql-local --hostname postgresql-madmex \
 -dit madmex/postgresql-madmex-local:v8 /bin/bash
