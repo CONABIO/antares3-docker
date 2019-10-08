@@ -82,7 +82,7 @@ docker run -v /Volumes/MADMEX:/LUSTRE/MADMEX \
 -v $dir/home_madmex_user_conabio_docker_container_results/:/home/madmex_user/results \
 -v $dir/tmp_docker_container:/tmp \
 -v $dir/shared_volume_docker_container:/shared_volume \
---name antares3-local \
+--name antares3-local_scheduler \
 --hostname antares3-datacube -p 2224:22 -p 8706:8786 -p 8707:8787 \
 -p 8708:8788 -p 8709:8789 -p 9999:9999 \
 -dit madmex/madmex_local:v8 /bin/bash
