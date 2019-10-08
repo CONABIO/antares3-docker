@@ -50,7 +50,7 @@ docker exec -u=postgres -it postgresql-local /home/postgres/conf/setup.sh
 Enter and restart `ssh`
 
 ```
-sudo docker exec -u=postgres -it postgresql-conabio-cluster-container  bash
+sudo docker exec -u=postgres -it postgresql-local  bash
 
 sudo service ssh restart
 ```
@@ -64,6 +64,12 @@ ssh -p 2225 postgres@<local node>
 and password in `conf/entrypoint.sh` 
 
 **Create some spatial indexes**
+
+to enter to local database: (see [conf/setup.sh](conf/setup.sh) for credentials)
+
+```
+psql -h localhost -d <databasename> -U postgres
+```
 
 ```
 CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST (the_geom);
