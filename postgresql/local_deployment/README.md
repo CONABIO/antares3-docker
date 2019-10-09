@@ -50,7 +50,7 @@ docker exec -u=postgres -it postgresql-local /home/postgres/conf/setup.sh
 Enter and restart `ssh`
 
 ```
-sudo docker exec -u=postgres -it postgresql-local  bash
+docker exec -u=postgres -it postgresql-local  bash
 
 sudo service ssh restart
 ```
