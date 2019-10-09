@@ -4,7 +4,8 @@ To avoid having different packages and dependencies we use same image in docker 
 # Run docker container
 
 ```
-docker run --user=root --name antares3-datacube-container_v8 --hostname antares3-datacube -dit madmex/antares3-k8s-cluster-dependencies:v8 /bin/bash
+docker run --user=root --name antares3-datacube-container_v8 \
+--hostname antares3-datacube -dit madmex/antares3-k8s-cluster-dependencies:v8 /bin/bash
 ```
 
 
