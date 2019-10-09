@@ -1,4 +1,4 @@
-To avoid having different packages and dependencies we use same image in docker hub to deploy k8s deployment and dummy cluster locally without permissions to write to LUSTRE file system. This docker image uses a `bionic` version of ubuntu.
+To avoid having different packages and dependencies we use same image in docker hub to deploy k8s deployment and dummy cluster locally. This docker image uses a `bionic` version of ubuntu.
 
 
 # Run docker container
