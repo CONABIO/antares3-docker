@@ -63,6 +63,8 @@ exit of docker container, commit changes to a image and then (optionally) push i
 ```
 docker commit antares3-datacube-container_v8 madmex/madmex_local:v8
 
+docker push madmex/madmex_local:v8 #(optional)
+
 docker stop antares3-datacube-container_v8
 
 docker rm antares3-datacube-container_v8
