@@ -178,7 +178,7 @@ SEGMENTATION_BUCKET=<name of bucket>
 To login via ssh restart ssh service `sudo service ssh restart` inside of container and then just do a:
 
 ```
-ssh -o ServerAliveInterval=60 -p 2222 madmex_user@<local node>
+ssh -o ServerAliveInterval=60 -p 2224 madmex_user@<local node>
 ```
 
 and same password :)
