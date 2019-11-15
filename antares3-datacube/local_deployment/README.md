@@ -246,12 +246,13 @@ dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/sch
 
 
 dir=/Users/<miuser>/Documents/antares3-datacube-volume-docker
+git_branch=<here put branch of git>
 
 for i in $(seq $1);do docker run --name antares3-local_worker_$i -v $dir/shared_volume_docker_container:/shared_volume --hostname antares3-datacube -p 970$i:8786 -dit madmex/madmex_local:v8 /bin/bash;done
 
 for i in $(seq $1);do docker exec -it antares3-local_worker_$i /usr/local/bin/entrypoint.sh;done
 
-for i in $(seq $1);do docker exec -it -u=madmex_user antares3-local_worker_$i /bin/bash -c 'pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch of git> --upgrade --no-deps && /home/madmex_user/.local/bin/antares init';done
+for i in $(seq $1);do docker exec -it -u=madmex_user antares3-local_worker_$i /bin/bash -c 'pip3 install --user git+https://github.com/CONABIO/antares3.git@$git_branch --upgrade --no-deps && /home/madmex_user/.local/bin/antares init';done
 
 for i in $(seq $1);do docker exec -d -u=madmex_user antares3-local_worker_$i dask-worker --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit 4GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json;done
 
