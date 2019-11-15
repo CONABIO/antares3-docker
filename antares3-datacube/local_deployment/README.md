@@ -233,7 +233,7 @@ pip3 install --user git+https://github.com/CONABIO/antares3.git@<here put branch
 # Dask scheduler
 
 ```
-dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
+docker exec -d -u=madmex_user antares3-local_scheduler dask-scheduler --port 8786 --bokeh-port 8787 --scheduler-file /shared_volume/scheduler.json
 ```
 
 # Bash script to launch dask workers:
