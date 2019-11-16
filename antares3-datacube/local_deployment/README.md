@@ -238,24 +238,26 @@ docker exec -d -u=madmex_user antares3-local_scheduler dask-scheduler --port 878
 
 # Bash script to launch dask workers:
 
+Change variables `$dir`, `$git_branch` and `$ram` according to your settings.
 
 `launch_dask_workers.sh`
 
 ```
 #!/bin/bash
 
+#$1 number or workers
 
-dir=/Users/<miuser>/Documents/antares3-datacube-volume-docker
-git_branch=<here put branch of git>
+dir=/Users/erickpalacios/Documents/CONABIO/Tareas/2019/antares3-datacube-volume-docker
+git_branch=rapideye-support
+ram=5GB
 
-for i in $(seq $1);do docker run --name antares3-local_worker_$i -v $dir/shared_volume_docker_container:/shared_volume --hostname antares3-datacube -p 970$i:8786 -dit madmex/madmex_local:v8 /bin/bash;done
+for i in $(seq $1);do docker run --name antares3-local_worker_$i -v /Volumes/MADMEX:/LUSTRE/MADMEX -v $dir/shared_volume_docker_container:/shared_volume --hostname antares3-datacube -p 970$i:8786 -dit madmex/madmex_local:v8 /bin/bash;done
 
 for i in $(seq $1);do docker exec -it antares3-local_worker_$i /usr/local/bin/entrypoint.sh;done
 
-for i in $(seq $1);do docker exec -it -u=madmex_user antares3-local_worker_$i /bin/bash -c 'pip3 install --user git+https://github.com/CONABIO/antares3.git@$git_branch --upgrade --no-deps && /home/madmex_user/.local/bin/antares init';done
+for i in $(seq $1);do docker exec -it -e git_branch=$git_branch -u=madmex_user antares3-local_worker_$i /bin/bash -c 'pip3 install --user git+https://github.com/CONABIO/antares3.git@$git_branch --upgrade --no-deps && /home/madmex_user/.local/bin/antares init';done
 
-for i in $(seq $1);do docker exec -d -u=madmex_user antares3-local_worker_$i dask-worker --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit 4GB --death-timeout 60 --scheduler-file /shared_volume/scheduler.json;done
-
+for i in $(seq $1);do docker exec -d -u=madmex_user antares3-local_worker_$i dask-worker --nprocs 1 --worker-port 8786 --nthreads 1 --no-bokeh --memory-limit $ram --death-timeout 60 --scheduler-file /shared_volume/scheduler.json;done
 ```
 
 Execute bash script and select number of dask workers:
