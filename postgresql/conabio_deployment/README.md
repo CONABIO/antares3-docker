@@ -71,3 +71,24 @@ CREATE INDEX madmex_predictobject_gix ON public.madmex_predictobject USING GIST 
 CREATE INDEX madmex_trainobject_gix ON public.madmex_trainobject USING GIST (the_geom);
 ```
 
+# Note:
+
+If postgres container stopped then start it again, exec into it with postgres user and:
+
+```
+sudo /etc/init.d/postgresql start
+```
+
+# Note2:
+
+Change `postgresql.conf` according to your settings:
+
+```
+sed -i 's/#work_mem = 4MB/work_mem = 1GB/g' /etc/postgresql/10/main/postgresql.conf
+sed -i 's/#effective_io_concurrency = 1/effective_io_concurrency = 4/g' /etc/postgresql/10/main/postgresql.conf
+```
+
+And do a restart:
+
+```
+sudo /etc/init.d/postgresql restart
