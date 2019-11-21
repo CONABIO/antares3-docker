@@ -63,7 +63,10 @@ ssh -p 2225 postgres@<local node>
 
 and password in `conf/entrypoint.sh` 
 
+
 **Create some spatial indexes**
+
+For this section first go to [Init antares3&datacube](https://github.com/CONABIO/antares3-docker/tree/master/antares3-datacube/local_deployment#init-antares3--datacube)
 
 to enter to local database: (see [conf/setup.sh](conf/setup.sh) for credentials)
 
