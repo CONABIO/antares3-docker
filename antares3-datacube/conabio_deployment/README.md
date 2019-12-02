@@ -45,6 +45,11 @@ sudo docker run \
 -dit antares3-datacube:$ANTARES_DATACUBE_VERSION /bin/bash
 ```
 
+## Execute setup.sh
+
+`sudo docker exec -u=madmex_user -it conabio-deployment /home/madmex_user/conf/setup.sh`
+
+
 ## Config files
 
 We can edit ```.antares``` either:
@@ -124,9 +129,6 @@ TEMP_DIR=/shared_volume/temp
 SEGMENTATION_BUCKET=<name of bucket>
 ```
 
-## Execute setup.sh
-
-`sudo docker exec -u=madmex_user -it conabio-deployment /home/madmex_user/conf/setup.sh`
 
 ## Persist docker images
 
