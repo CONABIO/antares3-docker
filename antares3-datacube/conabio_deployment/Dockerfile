@@ -41,7 +41,8 @@ RUN apt-get install -y \
 	libproj-dev \
 	libgeos-dev \
 	gdal-bin \
-	libgdal-dev
+	libgdal-dev \
+	libspatialindex-dev
 
 # Python stuff from root
 RUN pip3 install virtualenv virtualenvwrapper
