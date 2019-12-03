@@ -41,8 +41,9 @@ pip3.6 install --user rasterio --no-binary rasterio
 pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django geopandas rtree --no-binary fiona
 pip3.6 install --user --no-cache --no-binary :all: psycopg2
 pip3.6 install --user datacube[s3]==v1.7.0
+pip3.6 install --user --user django==2.2.8
 pip3.6 install --user boto3 botocore awscli --upgrade
-pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade
+pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps
 pip3.6 install --user sentinelsat
 pip3.6 install --user ephem
 
