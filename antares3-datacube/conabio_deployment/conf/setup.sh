@@ -34,14 +34,13 @@ pip3.6 install --user six==1.11.0
 pip3.6 install --user numpy pandas xarray 
 pip3.6 install --user jupyter jupyterlab
 pip3.6 install --user dask distributed bokeh
-pip3.6 install --upgrade --user python-dateutil
+pip3.6 install --install --user python-dateutil==2.8.0
 pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 
 pip3.6 install --user rasterio --no-binary rasterio
-pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django geopandas rtree --no-binary fiona
+pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django==2.2.8 geopandas rtree --no-binary fiona
 pip3.6 install --user --no-cache --no-binary :all: psycopg2
 pip3.6 install --user datacube[s3]==v1.7.0
-pip3.6 install --user --user django==2.2.8
 pip3.6 install --user boto3 botocore awscli --upgrade
 pip3.6 install --user git+https://github.com/CONABIO/antares3.git@$antares_branch --upgrade --no-deps
 pip3.6 install --user sentinelsat
