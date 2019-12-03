@@ -31,10 +31,10 @@ echo 'export PATH=/home/madmex_user/.local/bin:$PATH' >> ~/.profile
 #use python3.6 and pip3.6 to install packages in ubuntu xenial 16.04
 python3.6 -m pip install --upgrade pip==19.2.2
 pip3.6 install --user six==1.11.0
+pip3.6 install --install --user python-dateutil==2.8.0
 pip3.6 install --user numpy pandas xarray 
 pip3.6 install --user jupyter jupyterlab
 pip3.6 install --user dask distributed bokeh
-pip3.6 install --install --user python-dateutil==2.8.0
 pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 
 pip3.6 install --user rasterio --no-binary rasterio
