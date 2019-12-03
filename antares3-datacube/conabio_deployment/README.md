@@ -261,7 +261,7 @@ replicas=2
 interface=eth0
 memory=6GB
 antares_branch=rapideye-support
-sudo docker service create --detach=false --name madmex-service-worker \
+sudo docker service create --limit-memory $memory --detach=false --name madmex-service-worker \
 --network overnet --replicas $replicas --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --env antares_branch=$antares_branch \
 --mount type=bind,source=$dir/home_madmex_user_conabio_docker_container_results,destination=/home/madmex_user/results \
