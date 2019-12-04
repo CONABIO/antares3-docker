@@ -228,14 +228,8 @@ sudo docker swarm leave --force
 
 **Note: if a node left, then repeat lines of join in all nodes to have status Active in all nodes (including manager)**
 
-**Note2: if manager left, then network will also dissappear, to clean a little you could run:**
+**Note2: if manager left, then network will also dissappear then create again the network:**
 
-
-```
-sudo docker network rm docker_gwbridge
-```
-
-**and create again the network**
 
 **Next commands need to be executed in node manager (for example node 5)**
 
