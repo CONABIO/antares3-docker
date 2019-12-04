@@ -225,7 +225,16 @@ To leave the swarm execute in a node labeled as manager:
 sudo docker swarm leave --force
 ```
 
-**Note: if a node left then repeat lines of join in all nodes to have status Active in all nodes**
+**Note: if a node left, then repeat lines of join in all nodes to have status Active in all nodes (including manager)**
+
+**Note2: if manager left, then network will also dissappear, to clean a little you could run:**
+
+
+```
+sudo docker network rm docker_gwbridge
+```
+
+**and create again the network**
 
 **Next commands need to be executed in node manager (for example node 5)**
 
