@@ -219,6 +219,14 @@ To leave the swarm execute in a node labeled as worker:
 sudo docker swarm leave
 ```
 
+To leave the swarm execute in a node labeled as manager:
+
+```
+sudo docker swarm leave --force
+```
+
+**Note: if a node left then repeat lines of join in all nodes to have status Active in all nodes**
+
 **Next commands need to be executed in node manager (for example node 5)**
 
 ## Create overlay network
