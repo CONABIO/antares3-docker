@@ -9,6 +9,7 @@ dir=/LUSTRE/MADMEX/docker_antares3/conabio_cluster
 ```
 mkdir -p $dir/tmp_docker_container
 mkdir -p $dir/shared_volume_docker_container
+mkdir -p $dir/home_madmex_user_conabio_docker_container_results
 ```
 
 # Clone repo
