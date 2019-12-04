@@ -201,10 +201,22 @@ sudo docker swarm join \
 <ip of node5>:<random port>
 ```
 
+To retrieve `<random token>` if you lost it, execute in node manager:
+
+```
+sudo docker swarm join-token worker
+```
+
 This last output need to be executed in every node that will be part of cluster. And we can see which nodes are in our cluster with:
 
 ```
 sudo docker node ls
+```
+
+To leave the swarm execute in a node labeled as worker:
+
+```
+sudo docker swarm leave
 ```
 
 **Next commands need to be executed in node manager (for example node 5)**
