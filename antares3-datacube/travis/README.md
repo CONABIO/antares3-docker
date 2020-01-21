@@ -19,11 +19,13 @@ cd $dir/antares3-docker/antares3-datacube/travis
 chmod gou+x conf.sh
 ```
 
-Set next variables according to last image built:
+Set next variables according to last image built and image for travis that will be built:
 
 ```
 ANTARES_DATACUBE_VERSION=v4
 REPO_URL_ANTARES=madmex/antares3-datacube
+REPO_URL_TRAVIS=madmex/travis_antares3
+TRAVIS_VERSION=v3
 ```
 
 Run docker container and execute `conf.sh`:
@@ -36,8 +38,8 @@ sudo docker exec -it -u=madmex_user travis-madmex bash /data/conf.sh
 After execution of `conf.sh` commit and push docker image to docker hub:
 
 ```
-sudo docker commit travis-madmex madmex/travis_antares3:v2
-sudo docker push madmex/travis_antares3:v2
+sudo docker commit travis-madmex $REPO_URL_TRAVIS:$TRAVIS_VERSION
+sudo docker push $REPO_URL_TRAVIS:$TRAVIS_VERSION
 ```
 
 # 4. `.travis.yml`
