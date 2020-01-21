@@ -1,5 +1,5 @@
 # This uses ubuntu version of docker image built in https://github.com/CONABIO/antares3-docker/blob/master/antares3-datacube/conabio_deployment/Dockerfile
-sudo add-apt-repository ppa:jonathonf/python-3.6
+sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get update
 sudo apt-get install -y python3.6
 sudo apt-get install -y python3.6-dev
@@ -11,7 +11,7 @@ echo "export LANG=C.UTF-8" >> /home/madmex_user/.profile
 
 python3.6 -m pip install --upgrade pip==19.2.2
 /home/madmex_user/.local/bin/pip3.6 install --user six==1.11.0
-/home/madmex_user/.local/bin/pip3.6 install --user numpy pandas xarray
+/home/madmex_user/.local/bin/pip3.6 install --user numpy pandas xarray dask
 /home/madmex_user/.local/bin/pip3.6 install --upgrade --user python-dateutil
 /home/madmex_user/.local/bin/pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 /home/madmex_user/.local/bin/pip3.6 install --user rasterio --no-binary rasterio
