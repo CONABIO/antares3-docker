@@ -11,17 +11,25 @@ git clone https://github.com/CONABIO/antares3-docker.git $dir/antares3-docker
 
 # 3. Build docker image and push it to dockerhub
 
-Using image previously built in [conabio_deployment](https://github.com/CONABIO/antares3-docker/tree/master/antares3-datacube/conabio_deployment#persist-docker-images) change directory and give permissions to execute `conf.sh`
+
+Using image previously built in [conabio_deployment](https://github.com/CONABIO/antares3-docker/tree/master/antares3-datacube/conabio_deployment#persist-docker-images) change directory and give permissions to execute `conf.sh`.
 
 ```
 cd $dir/antares3-docker/antares3-datacube/travis
 chmod gou+x conf.sh
 ```
 
+Set next variables according to last image built:
+
+```
+ANTARES_DATACUBE_VERSION=v4
+REPO_URL_ANTARES=madmex/antares3-datacube
+```
+
 Run docker container and execute `conf.sh`:
 
 ```
-sudo docker run -v $(pwd):/data --name travis-madmex --hostname antares3-datacube -dit madmex/antares3-datacube:v2 /bin/bash
+sudo docker run -v $(pwd):/data --name travis-madmex --hostname antares3-datacube -dit $REPO_URL_ANTARES:$ANTARES_DATACUBE_VERSION /bin/bash
 sudo docker exec -it -u=madmex_user travis-madmex bash /data/conf.sh
 ```
 
