@@ -21,7 +21,6 @@ python3.6 -m pip install --upgrade pip==19.2.2
 /home/madmex_user/.local/bin/pip3.6 install --user --no-cache --no-binary :all: psycopg2
 /home/madmex_user/.local/bin/pip3.6 install --user datacube==v1.7.0
 /home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade
-/home/madmex_user/.local/bin/pip3.6 install --user sentinelsat
 /home/madmex_user/.local/bin/pip3.6 install --user ephem
 
 sudo apt-get install -y postgresql-9.5 postgresql-9.5-postgis-2.4
