@@ -9,16 +9,20 @@ echo "alias python=python3.6" >> /home/madmex_user/.bash_aliases
 echo "export LC_ALL=C.UTF-8" >> /home/madmex_user/.profile
 echo "export LANG=C.UTF-8" >> /home/madmex_user/.profile
 
+antares_branch=develop
+
 python3.6 -m pip install --upgrade pip==19.2.2
 /home/madmex_user/.local/bin/pip3.6 install --user six==1.11.0
+/home/madmex_user/.local/bin/pip3.6 install --user python-dateutil==2.8.0
 /home/madmex_user/.local/bin/pip3.6 install --user numpy pandas xarray dask
-/home/madmex_user/.local/bin/pip3.6 install --upgrade --user python-dateutil
 /home/madmex_user/.local/bin/pip3.6 install --user GDAL==$(gdal-config --version) --global-option=build_ext --global-option='-I/usr/include/gdal'
 /home/madmex_user/.local/bin/pip3.6 install --user rasterio --no-binary rasterio
-/home/madmex_user/.local/bin/pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django --no-binary fiona
+/home/madmex_user/.local/bin/pip3.6 install --user scipy sklearn cloudpickle xgboost lightgbm fiona django==2.2.8 geopandas rtree --no-binary fiona
 /home/madmex_user/.local/bin/pip3.6 install --user --no-cache --no-binary :all: psycopg2
 /home/madmex_user/.local/bin/pip3.6 install --user datacube==v1.7.0
 /home/madmex_user/.local/bin/pip3.6 install --user git+https://github.com/CONABIO/antares3.git@develop --upgrade
+/home/madmex_user/.local/bin/pip3.6 install --user sentinelsat
+/home/madmex_user/.local/bin/pip3.6 install --user ephem
 
 sudo apt-get install -y postgresql-9.5 postgresql-9.5-postgis-2.4
 sudo /etc/init.d/postgresql start
