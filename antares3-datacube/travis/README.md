@@ -36,8 +36,8 @@ sudo docker exec -it -u=madmex_user travis-madmex bash /data/conf.sh
 After execution of `conf.sh` commit and push docker image to docker hub:
 
 ```
-sudo docker commit travis-madmex madmex/travis_antares3:v1
-sudo docker push madmex/travis_antares3:v1
+sudo docker commit travis-madmex madmex/travis_antares3:v2
+sudo docker push madmex/travis_antares3:v2
 ```
 
 # 4. `.travis.yml`
