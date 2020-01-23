@@ -16,7 +16,7 @@ mkdir -p $dir/var/lib/postgresql
 Build (outside of container):
 
 ```
-cd $dir/antares3-docker/postgresql
+cd $dir/antares3-docker/postgresql/conabio_deployment/
 sudo docker build -t madmex/postgresql-antares3-datacube-my_image:v_my_version .
 ```
 
