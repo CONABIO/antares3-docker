@@ -36,7 +36,7 @@ sudo docker run \
 -v $dir/etc/postgresql:/etc/postgresql \
 -v $dir/var/log/postgresql:/var/log/postgresql \
 -v $dir/var/lib/postgresql:/var/lib/postgresql \
--v $dir/antares3-docker/postgresql/conf/:/home/postgres/conf/ \
+-v $dir/antares3-docker/postgresql/conabio_deployment/conf/:/home/postgres/conf/ \
 -w /home/postgres \
 -e LOCAL_USER_ID=$(id -u madmex_admin) -p 2225:22 -p 5432:5432 --name postgresql-conabio-cluster-container --hostname postgresql-datacube \
 -dit madmex/postgresql-antares3-datacube-conabio-cluster:v1 /bin/bash
