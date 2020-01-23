@@ -149,6 +149,23 @@ sudo docker push $REPO_URL_MADMEX:$MADMEX_VERSION
 sudo docker push $REPO_URL_ANTARES:$ANTARES_DATACUBE_VERSION
 ```
 
+To download in parallel docker image use:
+
+```
+parallel-ssh -i -p 2 -t 0 -v -h nodos.txt -l madmex_admin "sudo docker pull madmex/conabio-deployment:v3"
+```
+
+where `nodos.txt`:
+
+```
+nodo1
+nodo2
+nodo3
+nodo4
+nodo5
+nodo6
+nodo7
+```
 
 # 3) Some notes
 
