@@ -15,7 +15,7 @@ mkdir -p $dir/var/lib/postgresql
 Build (outside of container):
 
 ```
-cd $dir/antares3-docker/postgresql
+cd $dir/antares3-docker/postgresql/local_deployment/
 
 docker build -t madmex/postgresql-madmex-local:v8 .
 ```
