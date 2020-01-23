@@ -67,9 +67,9 @@ and password in `conf/entrypoint.sh`
 Push to dockerhub:
 
 ```
-sudo docker commit postgresql-conabio-cluster-container madmex/postgresql-antares3-datacube-conabio-cluster:v1
+sudo docker commit postgresql-conabio-cluster-container madmex/postgresql-antares3-datacube-conabio-cluster:v2
 
-sudo docker push madmex/postgresql-antares3-datacube-conabio-cluster:v1
+sudo docker push madmex/postgresql-antares3-datacube-conabio-cluster:v2
 ```
 
 **Create some spatial indexes**
