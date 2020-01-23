@@ -287,7 +287,7 @@ Choose appropiate interface and branch of github of antares3 for scheduler in va
 
 ```
 interface=eth2
-antares_branch=rapideye-support
+antares_branch=develop
 sudo docker service create --detach=false --name madmex-service-scheduler \
 --network overnet --replicas 1 --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --env antares_branch=$antares_branch \
@@ -313,7 +313,7 @@ Change interface, number of workers, memory limit and branch of github of antare
 replicas=2
 interface=eth0
 memory=6GB
-antares_branch=rapideye-support
+antares_branch=develop
 sudo docker service create --limit-memory $memory --detach=false --name madmex-service-worker \
 --network overnet --replicas $replicas --env HDF5_USE_FILE_LOCKING=FALSE --env LOCAL_USER_ID=$(id -u madmex_admin) \
 --env antares_branch=$antares_branch \
