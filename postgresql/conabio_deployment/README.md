@@ -64,6 +64,14 @@ ssh -p 2225 postgres@nodo5.conabio.gob.mx
 
 and password in `conf/entrypoint.sh` 
 
+Push to dockerhub:
+
+```
+sudo docker commit postgresql-conabio-cluster-container madmex/postgresql-antares3-datacube-conabio-cluster:v1
+
+sudo docker push madmex/postgresql-antares3-datacube-conabio-cluster:v1
+```
+
 **Create some spatial indexes**
 
 ```
